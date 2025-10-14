@@ -1,13 +1,13 @@
 {
   "compilerOptions": { 
-    "outDir": "./build",
-    "module": "esnext",
-    "rootDir": "./src",
-    "moduleResolution": "node",
-    "target": "esnext",
-    "strict": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "outDir": "./build",   // Pasta de saída dos arquivos compilados
+    "module": "esnext",   // Tipo de módulo gerado (esnext)
+    "rootDir": "./src",   // Pasta do código fonte TS
+    "moduleResolution": "node",   // Modo de resolução dos imports
+    "target": "esnext",   // Versão do JS gerado
+    "strict": true,   // Ativa verificações rigorosas de tipo
+    "skipLibCheck": true,   // Ignora checagem de tipos de libs externas
+    "esModuleInterop": true,   // Facilita uso de módulos CommonJS com (import default)
+    "forceConsistentCasingInFileNames": true   // Impede erros de case nos nomes de arquivos
   }
 }
