@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // 🔌 Rotas principais
-app.use("/api/auth", taskRouter);
+app.use("/api/task", taskRouter);
 
 const PORT = process.env.PORT || 3000;
 
