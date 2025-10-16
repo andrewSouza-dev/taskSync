@@ -13,3 +13,36 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String     @db.VarChar(255)
+  email     String     @unique   @db.VarChar(150)
+  password  String     @db.VarChar(255)
+  tasks     UserTask[] // realação n:n através da tabela intermediaria       
+}
+
+model Task {
+  id            Int         @id @default(autoincrement())
+  title         String      @db.VarChar(100)
+  description   String?
+  status        TaskStatus  @default(PENDING)
+  users         UserTask[] // relação n:n através da tabela intermediaria
+}
+
+model UserTask {
+  user    User  @relation(fields: [userId], references: [id])
+  userId  Int
+  task    Task  @relation(fields: [taskId], references: [id])
+  taskId  Int
+  role    String?  // opcional, caso o usuario queira diferenciar dono/colaborador
+
+  @@id([userId, taskId])
+}
+
+enum TaskStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+}
