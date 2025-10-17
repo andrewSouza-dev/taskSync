@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../database";
+import { prisma } from "../database";
 import { AuthController } from "../controllers/authController";
 
 const routerAuth = Router();

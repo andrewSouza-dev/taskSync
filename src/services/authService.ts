@@ -1,12 +1,15 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { UserRepository } from "../repositories/userRepository";
+import { CreateUserAttributes, LoginAttributes, UserRepository } from "../repositories/userRepository";
 import { HttpError } from "../errors/HttpError";
+import { User } from "../../generated/prisma";
 
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async login(email: string, password: string) {
+  async login(data: LoginAttributes): Promise<{ user: User; token: string }> {
+    const { email, password } = data
+
     const user = await this.userRepository.findByEmail(email);
     if (!user) throw new HttpError(401, "Credenciais inválidas");
 
@@ -22,7 +25,7 @@ export class AuthService {
     return { user, token };
   }
 
-  async register(data: { name: string; email: string; password: string }) {
+  async register(data: CreateUserAttributes): Promise<User> {
     const existing = await this.userRepository.findByEmail(data.email);
     if (existing) throw new HttpError(400, "Email já cadastrado");
 

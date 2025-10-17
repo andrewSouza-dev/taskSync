@@ -5,7 +5,7 @@ export class TaskService {
   constructor(private readonly taskRepository: TaskRepository) {}
 
   async getAllTasks() {
-    return this.taskRepository.find();
+    return this.taskRepository.findAll();
   }
 
   async show(id: number) {
@@ -15,10 +15,11 @@ export class TaskService {
   }
 
   async create(data: any, userId: number) {
-    return this.taskRepository.create({
-      ...data,
-      users: { connect: { id: userId } },
-    });
+    const task = await this.taskRepository.create(data);
+
+    await this.taskRepository.linkUserToTask(userId, task.id);
+
+    return task;
   }
 
   async update(id: number, data: any) {

@@ -10,7 +10,7 @@ export class AuthController {
     try {
       const { email, password } = req.body;
       // authService.login deve retornar algo como: { user, token }
-      const result = await this.authService.login(email, password);
+      const result = await this.authService.login({ email, password });
       return res.json(result);
     } catch (error) {
       next(error);
