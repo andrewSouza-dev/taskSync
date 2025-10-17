@@ -1,17 +1,14 @@
 import { Router } from "express";
-import { TaskController } from "../controllers/taskController";
-import { PrismaTaskRepository } from "../repositories/prisma/prismaTaskRepository";
-import { TaskService } from "../services/TaskService";
+import { taskController } from "../../containers/taskContainer";
 
 const routerTask = Router();
 
-
-
-
+// ROUTER TASKS
 routerTask.get("/", taskController.getAllTasks);
 routerTask.get("/:id", taskController.showTask);
 routerTask.post("/", taskController.createTask);
 routerTask.put("/:id", taskController.updateTask);
 routerTask.delete("/:id", taskController.deleteTask);
 
-export default routerTask;
+
+export { routerTask };

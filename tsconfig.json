@@ -2,7 +2,6 @@
   "compilerOptions": { 
     "outDir": "./build",   // Pasta de saída dos arquivos compilados
     "module": "esnext",   // Tipo de módulo gerado (esnext)
-    "rootDir": "./src",   // Pasta do código fonte TS
     "moduleResolution": "node",   // Modo de resolução dos imports
     "target": "esnext",   // Versão do JS gerado
     "strict": true,   // Ativa verificações rigorosas de tipo

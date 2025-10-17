@@ -1,13 +1,10 @@
 import { Router } from "express";
-import { AuthController } from "../controllers/authController";
-import { PrismaUserRepository } from "../repositories/prisma/prismaUserRepository";
-import { AuthService } from "../services/AuthService";
+import { authController } from "../../containers/userContainer";
 
 const routerAuth = Router();
 
-
-
+// ROUTER USERS 
 routerAuth.post("/login", authController.login);
 routerAuth.post("/register", authController.register);
 
-export default routerAuth;
+export { routerAuth };

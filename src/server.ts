@@ -1,9 +1,9 @@
 import express, { Application } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import routerTask  from "./routes/taskRoutes";
-import routerAuth from "./routes/authRoutes";
+import { routerTask }  from "./routes/taskRoutes";
 import { errorHandlerMiddleware } from "./middlewares/errorHandler";
+import { routerAuth } from "./routes/authRoutes";
 
 // 🔧 Carrega variáveis do .env
 dotenv.config();
