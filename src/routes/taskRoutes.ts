@@ -5,9 +5,7 @@ import { TaskService } from "../services/TaskService";
 
 const routerTask = Router();
 
-const taskRepository = new PrismaTaskRepository();
-const taskService = new TaskService(taskRepository);
-const taskController = new TaskController(taskService);
+
 
 
 routerTask.get("/", taskController.getAllTasks);
