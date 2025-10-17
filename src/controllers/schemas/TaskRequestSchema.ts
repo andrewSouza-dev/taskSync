@@ -1,4 +1,4 @@
-import { optional, z } from "zod";
+import { z } from "zod";
 
 export const CreateTaskRequestSchema = z.object({
     title: z.string(),
