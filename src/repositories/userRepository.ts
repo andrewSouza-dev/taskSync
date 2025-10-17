@@ -1,11 +1,6 @@
-import { User, Prisma } from "@prisma/client";
+import User from "@prisma/client";
 
-export interface UserRepository {
+export interface IUserRepository {
   findByEmail(email: string): Promise<User | null>;
-  create(data: ): Promise<User>;
-  findById(id: number): Promise<User | null>;
-}
-
-const createUser { 
-
+  create(data: { name: string; email: string; password: string }): Promise<User>;
 }

@@ -1,9 +1,9 @@
-import prisma from "../../database";
-import { TaskRepository } from "../taskRepository";
-import { Prisma, Task } from "@prisma/client";
+import { prisma } from "../../prisma/client";
+import { TaskRepository, CreateTaskDTO, UpdateTaskDTO } from "../taskRepository";
+import { Task } from "@prisma/client";
 
 export class PrismaTaskRepository implements TaskRepository {
-  async find(): Promise<Task[]> {
+  async findAll(): Promise<Task[]> {
     return prisma.task.findMany();
   }
 
@@ -11,15 +11,18 @@ export class PrismaTaskRepository implements TaskRepository {
     return prisma.task.findUnique({ where: { id } });
   }
 
-  async create(data: Prisma.TaskCreateInput): Promise<Task> {
+  async create(data: CreateTaskDTO): Promise<Task> {
     return prisma.task.create({ data });
   }
 
-  async updateById(id: number, data: Partial<Prisma.TaskUpdateInput>): Promise<Task | null> {
-    return prisma.task.update({ where: { id }, data });
+  async updateById(id: number, data: UpdateTaskDTO): Promise<Task> {
+    return prisma.task.update({
+      where: { id },
+      data,
+    });
   }
 
-  async deleteById(id: number): Promise<Task | null> {
-    return prisma.task.delete({ where: { id } });
+  async deleteById(id: number): Promise<void> {
+    await prisma.task.delete({ where: { id } });
   }
 }

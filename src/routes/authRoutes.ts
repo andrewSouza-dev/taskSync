@@ -2,10 +2,10 @@ import { Router } from "express";
 import prisma from "../database";
 import { AuthController } from "../controllers/authController";
 
-const router = Router();
+const routerAuth = Router();
 const controller = new AuthController(prisma);
 
-router.post("/login", controller.login);
-router.post("/register", controller.register);
+routerAuth.post("/login", controller.login);
+routerAuth.post("/register", controller.register);
 
-export default router;
+export default routerAuth;

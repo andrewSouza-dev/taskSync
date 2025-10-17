@@ -1,7 +1,8 @@
 import express, { Application } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { taskRouter } from "./routes/taskRoutes";
+import routerTask  from "./routes/taskRoutes";
+import routerAuth from "./routes/authRoutes";
 
 // 🔧 Carrega variáveis do .env
 dotenv.config();
@@ -11,7 +12,8 @@ app.use(cors());
 app.use(express.json());
 
 // 🔌 Rotas principais
-app.use("/api/task", taskRouter);
+app.use("/api/task", routerTask);
+app.use("/api/auth", routerAuth);
 
 const PORT = process.env.PORT || 3000;
 
