@@ -27,6 +27,6 @@ export class PrismaTaskRepository implements TaskRepository {
   }
 
   async linkUserToTask(userId: number, taskId: number): Promise<UserTask> {
-    return prisma.task.linkUserToTask({ userId, taskId })
+    return prisma.userTask.create({ data: { userId, taskId }})
   }
 }

@@ -1,4 +1,4 @@
-import { TaskRepository } from "../repositories/taskRepository";
+import { CreateTaskAttributes, TaskRepository } from "../repositories/taskRepository";
 import { HttpError } from "../errors/HttpError";
 
 export class TaskService {
@@ -14,15 +14,18 @@ export class TaskService {
     return task;
   }
 
-  async create(data: any, userId: number) {
-    const task = await this.taskRepository.create(data);
+  async create(data: CreateTaskAttributes, userId: number) {
+    const task = await this.taskRepository.create({
+      ...data,
+      status: data.status || "PENDING"
+    });
 
     await this.taskRepository.linkUserToTask(userId, task.id);
 
     return task;
   }
 
-  async update(id: number, data: any) {
+  async update(id: number, data: Partial<CreateTaskAttributes>) {
     const task = await this.taskRepository.findById(id);
     if (!task) throw new HttpError(404, "Tarefa não encontrada");
     return this.taskRepository.updateById(id, data);

@@ -1,7 +1,7 @@
 import { Handler } from "express";
 import jwt from "jsonwebtoken";
 
-export class AuthMiddlewar {
+export class AuthMiddleware {
   static verify : Handler = async (req, res, next) => {
     const header = req.headers.authorization;
     if (!header) return res.status(401).json({ error: "Token ausente" });

@@ -16,9 +16,11 @@ export class AuthService {
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) throw new HttpError(401, "Credenciais inválidas");
 
+    if (!process.env.JWT_SECRET) throw new Error("JWT_SECRET não definido");
+
     const token = jwt.sign(
       { userId: user.id, email: user.email },
-      process.env.JWT_SECRET!,
+      process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
