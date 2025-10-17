@@ -1,5 +1,5 @@
 import { Handler } from "express";
-import { TaskService } from "../services/taskService";
+import { TaskService } from "../services/TaskService";
 
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}

@@ -11,11 +11,11 @@ export const UpdateTaskRequestSchema = z.object({
     description: z.string().optional(),
 })
 
-const TaskStatusSchema = z.enum({
-  //  "PENDING",
-  //  "RUNNING",
-   // "COMPLETED",
-  //  "FAILED",
-})
+const TaskStatusSchema = z.enum([
+    "PENDING",
+    "RUNNING",
+    "COMPLETED",
+    "FAILED",
+])
 
 

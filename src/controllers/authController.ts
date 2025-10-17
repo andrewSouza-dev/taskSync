@@ -1,6 +1,6 @@
 
 import { Handler } from "express";
-import { AuthService } from "../services/authService";
+import { AuthService } from "../services/AuthService";
 
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
