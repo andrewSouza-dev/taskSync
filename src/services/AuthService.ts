@@ -27,7 +27,7 @@ export class AuthService {
     return { user, token };
   }
 
-  async register(data: CreateUserAttributes): Promise<User> {
+  async register(data: CreateUserAttributes): Promise<{ user : Omit<User, "password">; token: string }> {
     const existing = await this.userRepository.findByEmail(data.email);
     if (existing) throw new HttpError(400, "Email já cadastrado");
 
@@ -38,6 +38,18 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    return newUser;
+    if (!process.env.JWT_SECRET)
+      throw new Error("JWT_SECRET não definido");
+
+    const token = jwt.sign(
+      { userId: newUser.id, email: newUser.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    // Remove o campo password antes de retornar
+    const { password, ...userWithoutPassword } = newUser;
+
+    return { user: userWithoutPassword, token };
   }
 }
