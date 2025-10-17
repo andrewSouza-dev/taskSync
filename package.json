@@ -8,8 +8,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "tsx watch src/server.ts",
-    "start": "node build/server.js"
+    "dev": "tsx watch ./src/server.ts",
+    "start": "node ./build/server.js"
   },
   "dependencies": {
     "@prisma/client": "^6.17.1",
