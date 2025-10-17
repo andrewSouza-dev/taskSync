@@ -3,12 +3,12 @@ import { prisma } from "../database";
 import { TaskController } from "../controllers/taskController";
 
 const routerTask = Router();
-const controller = new TaskController(prisma);
+const taskController = new TaskController(prisma);
 
-routerTask.get("/", controller.getAllTasks);
-routerTask.get("/:id", controller.showTask);
-routerTask.post("/", controller.createTask);
-routerTask.put("/:id", controller.updateTask);
-routerTask.delete("/:id", controller.deleteTask);
+routerTask.get("/", taskController.getAllTasks);
+routerTask.get("/:id", taskController.showTask);
+routerTask.post("/", taskController.createTask);
+routerTask.put("/:id", taskController.updateTask);
+routerTask.delete("/:id", taskController.deleteTask);
 
 export default routerTask;
