@@ -12,11 +12,13 @@ dotenv.config();
 const app: Application = express();
 app.use(cors());
 app.use(express.json());
-app.use(errorHandlerMiddleware);
 
 // 🔌 Rotas principais
 app.use("/api/task", routerTask);
 app.use("/api/auth", routerAuth);
+
+// Tratar os possiveis erros das rotas
+app.use(errorHandlerMiddleware);
 
 // 🚪 Porta do Servidor
 const PORT = process.env.PORT || 3000;
