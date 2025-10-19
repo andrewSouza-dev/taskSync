@@ -7,6 +7,7 @@
     "strict": true,   // Ativa verificações rigorosas de tipo
     "skipLibCheck": true,   // Ignora checagem de tipos de libs externas
     "esModuleInterop": true,   // Facilita uso de módulos CommonJS com (import default)
-    "forceConsistentCasingInFileNames": true   // Impede erros de case nos nomes de arquivos
+    "forceConsistentCasingInFileNames": true,   // Impede erros de case nos nomes de arquivos
+    "typeRoots": ["./node_modules/@types", "./src/@types"]
   }
 }

@@ -3,7 +3,7 @@ import { HttpError } from "../errors/HttpError";
 
 export class TaskService {
   constructor(private readonly taskRepository: TaskRepository) {}
-
+  
   async getAllTasks() {
     return this.taskRepository.findAll();
   }
