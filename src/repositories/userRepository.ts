@@ -6,9 +6,12 @@ export interface CreateUserAttributes {
     password: string
 }
 export interface UserRepository {
+  findAll(): Promise<User[]>
   findById(id: number): Promise<User | null>;
   findByEmail(email: string): Promise<User | null>;
   create(data: CreateUserAttributes): Promise<User>;
+  update(id: number, data: Partial<CreateUserAttributes>): Promise<User | null>;
+  delete(id: number): Promise<User | null>
 }
 
 export interface LoginAttributes {

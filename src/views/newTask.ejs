@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% layout('layout', { title: 'Criar Tarefa' }) %>
+
+    <h1>Criar Tarefa</h1>
+    <form action="tasks.ejs" method="POST">
+        <label>Título: <input type="text" name="title" required></label><br>
+        <label>Descrição: <textarea name="description"></textarea></label><br>
+        <button type="submit">Criar</button>
+    </form>
+    <a href="tasks.ejs">Voltar</a>
+</body>
+</html>
