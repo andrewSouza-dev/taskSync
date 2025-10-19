@@ -48,6 +48,7 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
     },
     create: { userId, taskId },
     update: {}, // nada atualiza se já existir
+    include: { task: true }
   });
   }
 
