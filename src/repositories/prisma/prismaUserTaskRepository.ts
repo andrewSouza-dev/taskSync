@@ -42,13 +42,13 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
 
   // 🔹 Criar/associar task a um usuário
   async createTaskByUser(userId: number, taskId: number, role?: string): Promise<UserTask> {
-    const existing = await prisma.userTask.findUnique({
-      where: { userId_taskId: { userId, taskId } },
+    return prisma.userTask.upsert({
+    where: { 
+      userId_taskId: { userId, taskId } 
+    },
+    create: { userId, taskId },
+    update: {}, // nada atualiza se já existir
   });
-
-    if (existing) return existing; // já existe, retorna
-
-    return prisma.userTask.create({ data: { userId, taskId } });
   }
 
 
@@ -60,7 +60,7 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
     });
   }
 
-  
+
   // 🔹 Deletar task de um usuário (sem deletar a task global)
   async deleteUserTask(userId: number, taskId: number): Promise<UserTask> {
     return prisma.userTask.delete({
