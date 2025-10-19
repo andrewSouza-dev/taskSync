@@ -42,8 +42,8 @@ export class UserTaskController {
         role,
       });
       res.status(201).json(create);
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   };
 
@@ -56,8 +56,8 @@ export class UserTaskController {
 
       const updated = await this.userTaskService.updateUserTask(userId, taskId, role);
       res.json(updated);
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   };
 
@@ -69,8 +69,8 @@ export class UserTaskController {
 
       await this.userTaskService.deleteUserTask(userId, taskId);
       res.status(204).send();
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   };
 }

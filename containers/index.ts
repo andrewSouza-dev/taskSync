@@ -14,7 +14,7 @@ const userTaskRepository = new PrismaUserTaskRepository();
 
 export const authService = new AuthService(userRepository);
 export const taskService = new TaskService(taskRepository);
-export const userTaskService = new UserTaskService(userTaskRepository);
+export const userTaskService = new UserTaskService(userTaskRepository, taskRepository);
 
 export const authController = new AuthController(authService);
 export const taskController = new TaskController(taskService);

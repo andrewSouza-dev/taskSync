@@ -75,7 +75,7 @@ export class UserTaskService {
     return this.userTaskRepository.updateUserTask(userId, taskId, role);
   }
 
-  
+
   async deleteUserTask(userId: number, taskId: number) {
     const existing = await this.userTaskRepository.findByIdTaskAndUser(userId, taskId);
     if (!existing) throw new HttpError(404, "Tarefa não encontrada para este usuário");
