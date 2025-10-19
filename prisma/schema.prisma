@@ -27,11 +27,12 @@ model Task {
 model UserTask {
   userId Int
   taskId Int
-  role   String?
-  task   Task    @relation(fields: [taskId], references: [id])
-  user   User    @relation(fields: [userId], references: [id])
+  role   UserRole   @default(MEMBER)
 
-  @@id([userId, taskId])
+  task   Task       @relation(fields: [taskId], references: [id])
+  user   User       @relation(fields: [userId], references: [id])
+
+  @@unique([userId, taskId])
 }
 
 enum TaskStatus {
@@ -39,4 +40,9 @@ enum TaskStatus {
   RUNNING
   COMPLETED
   FAILED
+}
+
+enum UserRole {
+  ADMIN
+  MEMBER
 }

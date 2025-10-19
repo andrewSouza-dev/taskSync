@@ -1,4 +1,4 @@
-import { Task, UserTask } from "../../../generated/prisma";
+import { Task, UserRole, UserTask } from "../../../generated/prisma";
 import { prisma } from "../../database";
 import { UserTaskRepository } from "../userTaskRepository";
 
@@ -14,8 +14,13 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
           },
         },
       },
-      include: {
-        users: true, //  incluir dados da relação
+      include: {  //  incluir dados da relação
+        users: {
+          select: {
+            role: true,
+            userId: true
+          }
+        } 
       },
     });
   }
@@ -39,7 +44,7 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
 
 
   // 🔹 Criar/associar task a um usuário
-  async createTaskByUser(userId: number, taskId: number, role: string = "MEMBER"): Promise<UserTask> {
+  async createTaskByUser(userId: number, taskId: number, role: UserRole): Promise<UserTask> {
       return await prisma.userTask.create({
         data: {
           userId,
@@ -54,7 +59,7 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
   }
 
   // 🔹 Atualizar task de um usuário (role ou campos do relacionamento)
-  async updateUserTask(userId: number, taskId: number, role?: string): Promise<UserTask> {
+  async updateUserTask(userId: number, taskId: number, role?: UserRole): Promise<UserTask> {
     return prisma.userTask.update({
       where: { userId_taskId: { userId, taskId } },
       data: { role },
