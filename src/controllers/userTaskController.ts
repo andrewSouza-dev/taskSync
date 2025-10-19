@@ -9,6 +9,7 @@ export class UserTaskController {
   getUserTasks: Handler = async (req, res, next) => {
     try {
       const userId = Number(req.params.userId);
+      
       const tasks = await this.userTaskService.getTasksByUserId(userId);
       res.json(tasks);
     } catch (error) {

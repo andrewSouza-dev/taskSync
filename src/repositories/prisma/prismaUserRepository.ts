@@ -16,7 +16,7 @@ export class PrismaUserRepository implements UserRepository {
     return prisma.user.findUnique({ where: { email } });
   }
 
-  async create(data: Omit<User, "id">): Promise<User> {
+  async create(data: CreateUserAttributes): Promise<User> {
     return prisma.user.create({ data });
   }
 

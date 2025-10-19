@@ -1,5 +1,6 @@
 import { Handler } from "express";
 import { UserService } from "../services/userService";
+import { CreateUserRequestSchema, UpdateUserRequestSchema } from "./schemas/userRequestSchema";
 
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -7,7 +8,6 @@ export class UserController {
   getAll: Handler = async (req, res, next) => {
     try {
       const users = await this.userService.findAll();
-      
       res.json(users);
     } catch (error) {
       next(error);
@@ -17,8 +17,8 @@ export class UserController {
   getById: Handler = async (req, res, next) => {
     try {
       const id = Number(req.params.id);
-      const userById = await this.userService.findById(id);
 
+      const userById = await this.userService.findById(id);
       res.json(userById);
     } catch (error) {
       next(error);
@@ -28,8 +28,8 @@ export class UserController {
   getByEmail: Handler = async (req, res, next) => {
     try {
         const email = (req.params.email);
-        const userByEmail = await this.userService.findByEmail(email)
 
+        const userByEmail = await this.userService.findByEmail(email)
         res.json(userByEmail)
     } catch (error) {
         next(error)
@@ -38,9 +38,9 @@ export class UserController {
 
   create: Handler = async (req, res, next) => {
     try {
-      const { name, email, password } = req.body;
-      const newUser = await this.userService.create({ name, email, password });
+      const data = CreateUserRequestSchema.parse(req.body);
 
+      const newUser = await this.userService.create(data);
       res.status(201).json(newUser);
     } catch (error) {
       next(error);
@@ -50,13 +50,9 @@ export class UserController {
   update: Handler = async (req, res, next) => {
     try {
         const id = Number(req.params.id);
-        const { name , email, password } = req.body;
-        const updateUser = await this.userService.update(id, {
-            name,
-            email,
-            password
-        })
+        const data = UpdateUserRequestSchema.parse(req.body);
 
+        const updateUser = await this.userService.update(id, data)
         res.status(200).json(updateUser)
     } catch (error) {
         next(error)
@@ -67,8 +63,8 @@ export class UserController {
   delete: Handler = async (req, res, next) => {
     try {
       const id = Number(req.params.id);
-      const deleted = await this.userService.delete(id);
 
+      const deleted = await this.userService.delete(id);
       res.status(200).json({ deleted });
     } catch (error) {
       next(error);

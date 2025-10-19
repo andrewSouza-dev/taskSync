@@ -1,12 +1,6 @@
 import { UserRepository } from "../repositories/userRepository";
 import { User } from "../../generated/prisma";
-import { id } from "zod/v4/locales";
-
-export interface CreateUser {
-  name: string;
-  email: string;
-  password: string;
-}
+import { CreateUserRequest, UpdateUserRequest } from "../controllers/schemas/userRequestSchema";
 
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
@@ -23,11 +17,11 @@ export class UserService {
     return this.userRepository.findByEmail(email);
   }
 
-  async create(data: CreateUser): Promise<User> {
+  async create(data: CreateUserRequest): Promise<User> {
     return this.userRepository.create(data);
   }
 
-  async update(id: number, data: Partial<CreateUser>): Promise<User | null> {
+  async update(id: number, data: UpdateUserRequest): Promise<User | null> {
     return this.userRepository.update(id, data)
   }
 

@@ -1,5 +1,4 @@
 import { Handler } from "express"
-import { AuthService } from "../services/authService";
 import { UserRepository } from "../repositories/userRepository";
 
 export class ViewUserController {
@@ -27,7 +26,7 @@ export class ViewUserController {
             await this.userService.create({ name, email, password });
             res.redirect("/usuarios");
         } catch (error) {
-        next(error);
+            next(error);
         }
     };
 
@@ -39,7 +38,7 @@ export class ViewUserController {
             const usuario = await this.userService.findById(id);
             res.render("detalheUsuario", { title: "Detalhes do Usuário", usuario });
         } catch (error) {
-        next(error);
+            next(error);
         }
     };
 
@@ -50,7 +49,7 @@ export class ViewUserController {
             await this.userService.delete(id);
             res.redirect("/usuarios");
         } catch (error) {
-        next(error);
+            next(error);
         }
     };
 }

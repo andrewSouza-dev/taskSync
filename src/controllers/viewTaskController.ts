@@ -26,6 +26,7 @@ export class ViewTaskController {
     create: Handler = async (req, res, next) => {
         try {
             const { title, description, status } = req.body;
+            
             await this.taskService.create({ title, description, status });
             res.redirect("../views/tasks.ejs")
         } catch (error) {
@@ -38,6 +39,7 @@ export class ViewTaskController {
         try {
             const id = Number(req.params.id);
             const task = await this.taskService.show(id);
+
             res.render("detalheTarefa", { title: "Detalhes da tarefa", task });
         } catch (error) {
             next(error)
@@ -49,6 +51,7 @@ export class ViewTaskController {
     delete: Handler = async (req, res, next) => {
         try {
             const id = Number(req.params.id);
+
             await this.taskService.delete(id);
         } catch (error) {
             next(error)
