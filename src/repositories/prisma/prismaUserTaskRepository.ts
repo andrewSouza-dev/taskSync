@@ -4,6 +4,7 @@ import { UserTaskRepository } from "../userTaskRepository";
 
 
 export class PrismaUserTaskRepository implements UserTaskRepository {
+  // 🔹 Buscar todas as tasks de um usuário
   async findAllByUser(userId: number): Promise<Task[]> {
     const tasks = await prisma.task.findMany({
       where: {
@@ -21,6 +22,7 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
     return tasks;
   }
 
+  // 🔹 Buscar uma task específica de um usuário
   async findByIdTaskAndUser(userId: number, taskId: number): Promise<UserTask | null> {
     return await prisma.userTask.findUnique({
       where: {
@@ -35,4 +37,26 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
       },
     });
   }
+
+  // 🔹 Criar/associar task a um usuário
+  async createTaskByUser(userId: number, taskId: number, role?: string): Promise<UserTask> {
+    return prisma.userTask.create({ data: { userId, taskId, role } });
+  }
+
+  // 🔹 Atualizar task de um usuário (role ou campos do relacionamento)
+  async updateUserTask(userId: number, taskId: number, role?: string): Promise<UserTask> {
+    return prisma.userTask.update({
+      where: { userId_taskId: { userId, taskId } },
+      data: { role },
+    });
+  }
+
+  // 🔹 Deletar task de um usuário (sem deletar a task global)
+  async deleteUserTask(userId: number, taskId: number): Promise<UserTask> {
+    return prisma.userTask.delete({
+      where: { userId_taskId: { userId, taskId } },
+    });
+  }
 }
+
+

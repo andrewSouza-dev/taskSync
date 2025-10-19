@@ -16,4 +16,20 @@ export class UserTaskService {
 
     return userTask;
   }
+
+  async createUserTask(userId: number, taskId: number, role?: string) {
+    return this.userTaskRepository.createTaskByUser(userId, taskId, role);
+  }
+
+  async updateUserTask(userId: number, taskId: number, role?: string) {
+    const existing = await this.userTaskRepository.findByIdTaskAndUser(userId, taskId);
+    if (!existing) throw new HttpError(404, "Tarefa não encontrada para este usuário");
+    return this.userTaskRepository.updateUserTask(userId, taskId, role);
+  }
+
+  async deleteUserTask(userId: number, taskId: number) {
+    const existing = await this.userTaskRepository.findByIdTaskAndUser(userId, taskId);
+    if (!existing) throw new HttpError(404, "Tarefa não encontrada para este usuário");
+    return this.userTaskRepository.deleteUserTask(userId, taskId);
+  }
 }
