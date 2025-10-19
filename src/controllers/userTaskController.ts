@@ -68,7 +68,7 @@ export class UserTaskController {
       const taskId = Number(req.params.taskId);
 
       const deleted = await this.userTaskService.deleteUserTask(userId, taskId);
-      res.status(204).json({ deleted });
+      res.status(200).json({ deleted });
     } catch (error) {
       next(error);
     }

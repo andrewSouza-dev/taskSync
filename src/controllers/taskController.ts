@@ -54,7 +54,7 @@ export class TaskController {
       const id = Number(req.params.id);
 
       const deleted = await this.taskService.delete(id);
-      res.status(204).json({ deleted });
+      res.status(200).json({ deleted });
     } catch (error) {
       next(error);
     }
