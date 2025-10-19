@@ -8,7 +8,7 @@ export class UserTaskController {
   // 🔹 Buscar todas as tasks de um usuário
   getUserTasks: Handler = async (req, res, next) => {
     try {
-      const userId = req.user!.id // do JWT ou param
+      const userId = Number(req.params.userId);
       const tasks = await this.userTaskService.getTasksByUserId(userId);
       res.json(tasks);
     } catch (error) {
@@ -19,7 +19,7 @@ export class UserTaskController {
   // 🔹 Buscar uma task específica de um usuário
   getUserTaskById: Handler = async (req, res, next) => {
     try {
-      const userId = req.user!.id;
+      const userId = Number(req.params.userId);
       const taskId = Number(req.params.taskId);
 
       const userTask = await this.userTaskService.getTaskByUserAndTaskId(userId, taskId);
@@ -32,12 +32,16 @@ export class UserTaskController {
   // 🔹 Criar/associar uma task ao usuário logado
   createUserTask: Handler = async (req, res, next) => {
     try {
-      const userId = req.user!.id;
-      const taskId = Number(req.params.taskId);
-      const { role } = UserTaskRoleSchema.parse(req.body);
+      const userId = Number(req.params.userId);
+      const { title, description, status, role } = (req.body);
 
-      const userTask = await this.userTaskService.createUserTask(userId, taskId, role);
-      res.status(201).json(userTask);
+      const create = await this.userTaskService.createUserTask(userId, {
+        title,
+        description,
+        status,
+        role,
+      });
+      res.status(201).json(create);
     } catch (err) {
       next(err);
     }

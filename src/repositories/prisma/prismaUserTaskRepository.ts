@@ -6,7 +6,7 @@ import { UserTaskRepository } from "../userTaskRepository";
 export class PrismaUserTaskRepository implements UserTaskRepository {
   // 🔹 Buscar todas as tasks de um usuário
   async findAllByUser(userId: number): Promise<Task[]> {
-    const tasks = await prisma.task.findMany({
+    return prisma.task.findMany({
       where: {
         users: {
           some: {
@@ -15,17 +15,15 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
         },
       },
       include: {
-        users: true, // opcional: incluir dados da relação
+        users: true, //  incluir dados da relação
       },
     });
-
-    return tasks;
   }
 
 
   // 🔹 Buscar uma task específica de um usuário
   async findByIdTaskAndUser(userId: number, taskId: number): Promise<UserTask | null> {
-    return await prisma.userTask.findUnique({
+    return prisma.userTask.findUnique({
       where: {
         userId_taskId: {
           userId,
@@ -41,23 +39,29 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
 
 
   // 🔹 Criar/associar task a um usuário
-  async createTaskByUser(userId: number, taskId: number, role?: string): Promise<UserTask> {
-    return prisma.userTask.upsert({
-    where: { 
-      userId_taskId: { userId, taskId } 
-    },
-    create: { userId, taskId },
-    update: {}, // nada atualiza se já existir
-    include: { task: true }
-  });
+  async createTaskByUser(userId: number, taskId: number, role: string = "MEMBER"): Promise<UserTask> {
+      return await prisma.userTask.create({
+        data: {
+          userId,
+          taskId,
+          role,
+        },
+        include: {
+          task: true,
+          user: true,
+        },
+      });
   }
-
 
   // 🔹 Atualizar task de um usuário (role ou campos do relacionamento)
   async updateUserTask(userId: number, taskId: number, role?: string): Promise<UserTask> {
     return prisma.userTask.update({
       where: { userId_taskId: { userId, taskId } },
       data: { role },
+      include: {
+        task: true,
+        user: true
+      }
     });
   }
 
@@ -66,6 +70,10 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
   async deleteUserTask(userId: number, taskId: number): Promise<UserTask> {
     return prisma.userTask.delete({
       where: { userId_taskId: { userId, taskId } },
+      include: {
+        task: true,
+        user: true
+      }
     });
   }
 }

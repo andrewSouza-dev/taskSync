@@ -17,7 +17,7 @@ app.use(express.json());
 // 🔌 Rotas principais
 app.use("/api/tasks", taskRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/users/tasks", userTaskRoutes);
+app.use("/api/users", userTaskRoutes);
 
 // Tratar os possiveis erros das rotas
 app.use(errorHandlerMiddleware);
