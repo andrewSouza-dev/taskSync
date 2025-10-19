@@ -20,8 +20,6 @@ export class TaskService {
       status: data.status || "PENDING"
     });
 
-    await this.taskRepository.linkUserToTask(userId, task.id);
-
     return task;
   }
 

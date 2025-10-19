@@ -1,14 +1,18 @@
 import { Router } from "express";
-import { taskController } from "../../containers/taskContainer";
+import { taskController } from "../../containers";
+import { AuthMiddleware } from "../middlewares/authMiddleware";
 
-const routerTask = Router();
+const router = Router();
+
+// Todas as rotas protegidas
+router.use(AuthMiddleware.verify);
 
 // ROUTER TASKS
-routerTask.get("/", taskController.getAllTasks);
-routerTask.get("/:id", taskController.showTask);
-routerTask.post("/", taskController.createTask);
-routerTask.put("/:id", taskController.updateTask);
-routerTask.delete("/:id", taskController.deleteTask);
+router.get("/", taskController.getAllTasks);
+router.get("/:id", taskController.showTask);
+router.post("/", taskController.createTask);
+router.put("/:id", taskController.updateTask);
+router.delete("/:id", taskController.deleteTask);
 
 
-export { routerTask };
+export { router };

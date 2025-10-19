@@ -1,5 +1,6 @@
 import { Handler } from "express";
 import { TaskService } from "../services/taskService";
+import { CreateTaskRequestSchema, UpdateTaskRequestSchema } from "./schemas/taskRequestSchema";
 
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
@@ -27,8 +28,8 @@ export class TaskController {
 
   createTask: Handler = async (req, res, next) => {
     try {
-      const userId = Number(req.params.userId); // ou extraído do token JWT
-      const data = req.body;
+      const userId = req.user!.id; 
+      const data = CreateTaskRequestSchema.parse(req.body);
 
       const task = await this.taskService.create(data, userId);
       res.status(201).json(task);
@@ -40,7 +41,7 @@ export class TaskController {
   updateTask: Handler = async (req, res, next) => {
     try {
       const id = Number(req.params.id);
-      const data = req.body;
+      const data = UpdateTaskRequestSchema.parse(req.body);
 
       const task = await this.taskService.update(id, data);
       res.json(task);

@@ -15,5 +15,4 @@ export interface TaskRepository {
   create(data: CreateTaskAttributes): Promise<Task>;
   updateById(id: number, data: Partial<CreateTaskAttributes>): Promise<Task | null>;
   deleteById(id: number): Promise<Task | null>;
-  linkUserToTask(userId: number, taskId: number): Promise<UserTask>;
 }

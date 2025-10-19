@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { authController } from "../../containers/userContainer";
+import { authController } from "../../containers";
 
-const routerAuth = Router();
+const router = Router();
 
 // ROUTER USERS 
-routerAuth.post("/login", authController.login);
-routerAuth.post("/register", authController.register);
+router.post("/login", authController.login);
+router.post("/register", authController.register);
 
-export { routerAuth };
+export { router };

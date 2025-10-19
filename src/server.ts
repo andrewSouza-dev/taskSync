@@ -1,9 +1,10 @@
 import express, { Application } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { routerTask }  from "./routes/taskRoutes";
+import { router as authRoutes } from "./routes/authRoutes";
+import { router as taskRoutes } from "./routes/taskRoutes";
+import { router as userTaskRoutes } from "./routes/userTasksRoutes";
 import { errorHandlerMiddleware } from "./middlewares/errorHandler";
-import { routerAuth } from "./routes/authRoutes";
 
 // 🔧 Carrega variáveis do .env
 dotenv.config();
@@ -14,8 +15,9 @@ app.use(cors());
 app.use(express.json());
 
 // 🔌 Rotas principais
-app.use("/api/task", routerTask);
-app.use("/api/auth", routerAuth);
+app.use("/api/task", taskRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userTaskRoutes);
 
 // Tratar os possiveis erros das rotas
 app.use(errorHandlerMiddleware);
