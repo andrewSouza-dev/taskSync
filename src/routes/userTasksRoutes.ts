@@ -8,10 +8,10 @@ const router = Router();
 router.use(AuthMiddleware.verify);
 
 // ROUTER UserTasks
-router.get("/tasks", userTaskController.getUserTasks);
-router.get("/tasks/:taskId", userTaskController.getUserTaskById);
-router.post("/tasks/:taskId", userTaskController.createUserTask)
-router.put("tasks/:taskId", userTaskController.updateUserTask)
-router.delete("/tasks/:taskId", userTaskController.deleteUserTask)
+router.get("/", userTaskController.getUserTasks);
+router.get("/:taskId", userTaskController.getUserTaskById);
+router.post("/:taskId", userTaskController.createUserTask)
+router.put("/:taskId", userTaskController.updateUserTask)
+router.delete("/:taskId", userTaskController.deleteUserTask)
 
 export { router };
