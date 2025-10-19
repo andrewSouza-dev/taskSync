@@ -40,7 +40,13 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
 
   // 🔹 Criar/associar task a um usuário
   async createTaskByUser(userId: number, taskId: number, role?: string): Promise<UserTask> {
-    return prisma.userTask.create({ data: { userId, taskId, role } });
+    return prisma.userTask.upsert({ 
+      where: {
+        userId_taskId: { userId, taskId },
+      },
+      create: { userId, taskId },
+      update: {}, // não atualiza se já existir
+    });
   }
 
   // 🔹 Atualizar task de um usuário (role ou campos do relacionamento)
