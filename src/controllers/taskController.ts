@@ -28,10 +28,9 @@ export class TaskController {
 
   createTask: Handler = async (req, res, next) => {
     try {
-      const userId = req.user!.id; 
       const data = CreateTaskRequestSchema.parse(req.body);
 
-      const task = await this.taskService.create(data, userId);
+      const task = await this.taskService.create(data);
       res.status(201).json(task);
     } catch (error) {
       next(error);
@@ -54,8 +53,8 @@ export class TaskController {
     try {
       const id = Number(req.params.id);
 
-      await this.taskService.delete(id);
-      res.status(204).send();
+      const deleted = await this.taskService.delete(id);
+      res.status(204).json({ deleted });
     } catch (error) {
       next(error);
     }

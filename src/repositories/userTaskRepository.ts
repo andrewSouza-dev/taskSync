@@ -13,7 +13,7 @@ export interface UserTaskRepository {
     createTaskByUser(userid: number, taskId: number, role?: UserRole): Promise<UserTask | null>
 
     // Atualizar task de um usuário (role ou campos do relacionamento)
-    updateUserTask(userId: number, taskId: number, role?: UserRole): Promise<UserTask | null>
+    updateUserTask(userId: number, taskId: number, role?: UserRole ): Promise<UserTask | null>
 
     // Deletar task de um usuário (sem deletar a task global)
     deleteUserTask(userId: number, taskId: number): Promise<UserTask | null>

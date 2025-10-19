@@ -61,12 +61,12 @@ export class UserTaskService {
     
     
 
-  async updateUserTask(userId: number, taskId: number, role?: UserRole): Promise<UserTask | null> {
+  async updateUserTask(userId: number, taskId: number, role?: UserRole ): Promise<UserTask | null> {
     const existing = await this.userTaskRepository.findByIdTaskAndUser(userId, taskId);
     if (!existing) throw new HttpError(404, "Tarefa não encontrada para este usuário");
 
     // Só envia role se definido
-    const data: Partial<{ role: UserRole }> = {};
+    const data: { role?: UserRole } = {};
     if (role) data.role = role;
 
     return this.userTaskRepository.updateUserTask(userId, taskId, role);

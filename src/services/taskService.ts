@@ -19,7 +19,6 @@ export class TaskService {
     if (!data.title) throw new HttpError(400, "O título da tarefa é obrigatório.");
     const task = await this.taskRepository.create({
       ...data,
-      status: data.status || "PENDING"
     });
 
     return task;

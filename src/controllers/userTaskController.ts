@@ -67,8 +67,8 @@ export class UserTaskController {
       const userId = req.user!.id;
       const taskId = Number(req.params.taskId);
 
-      await this.userTaskService.deleteUserTask(userId, taskId);
-      res.status(204).send();
+      const deleted = await this.userTaskService.deleteUserTask(userId, taskId);
+      res.status(204).json({ deleted });
     } catch (error) {
       next(error);
     }
