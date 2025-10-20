@@ -1,0 +1,16 @@
+<%- include("../partials/header") %>
+
+<h1><%= title %></h1>
+<form action="/users" method="POST">
+  <input type="text" name="name" placeholder="Nome" required><br>
+  <input type="email" name="email" placeholder="Email" required><br>
+  <input type="password" name="password" placeholder="Senha" required><br>
+  <select name="role">
+    <option value="MEMBER">MEMBER</option>
+    <option value="ADMIN">ADMIN</option>
+  </select><br>
+  <button type="submit">Criar</button>
+</form>
+<a href="/users">Voltar</a>
+
+<%- include("../partials/footer") %>

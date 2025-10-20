@@ -1,61 +1,56 @@
 import { Handler } from "express";
-import { TaskService } from "../services/taskService";
-
+import { TaskRepository, CreateTaskAttributes, TaskStatus } from "../repositories/taskRepository";
+import { Task } from "../../generated/prisma";
 
 export class ViewTaskController {
-    constructor (private readonly taskService: TaskService) {}
+  constructor(private readonly taskService: TaskRepository) {}
 
-    // Listar todas as tarefas
-    listAllTasks: Handler = async (req, res, next) => {
-        try {
-            const tasks = await this.taskService.getAllTasks();
-            res.render("tarefas", { title: "Tarefas", tasks });
-        } catch (error) {
-            next(error)
-        }
+  // 📝 Listar todas as tarefas
+  listAllTasks: Handler = async (req, res, next) => {
+    try {
+      const tasks: Task[] = await this.taskService.findAll();
+      res.render("tarefas/listar", { title: "Tarefas", tasks });
+    } catch (error) {
+      next(error);
     }
+  };
 
+  // 🧩 Exibir formulário de criação
+  createForm: Handler = (req, res) => {
+    res.render("tarefas/criar", { title: "Criar Tarefa" });
+  };
 
-    // Exibir formulario de criação
-    createForm: Handler = (req, res) => {
-        res.render("CriarTarefa", { title: "Criar Tarefa" });
+  // 🆕 Criar nova tarefa
+  create: Handler = async (req, res, next) => {
+    try {
+      const { title, description, status } = req.body as CreateTaskAttributes;
+      await this.taskService.create({ title, description, status });
+      res.redirect("/tarefas");
+    } catch (error) {
+      next(error);
     }
+  };
 
-
-    // Criar uma nova tarefa
-    create: Handler = async (req, res, next) => {
-        try {
-            const { title, description, status } = req.body;
-            
-            await this.taskService.create({ title, description, status });
-            res.redirect("../views/tasks.ejs")
-        } catch (error) {
-            next(error)
-        }
+  // 👀 Exibir detalhes de uma tarefa
+  show: Handler = async (req, res, next) => {
+    try {
+      const id = Number(req.params.id);
+      const task: Task | null = await this.taskService.findById(id);
+      if (!task) return res.status(404).send("Tarefa não encontrada");
+      res.render("tarefas/show", { title: "Detalhes da Tarefa", task });
+    } catch (error) {
+      next(error);
     }
+  };
 
-    // Mostrar uma tarefa
-    show: Handler = async (req, res, next) => {
-        try {
-            const id = Number(req.params.id);
-            const task = await this.taskService.show(id);
-
-            res.render("detalheTarefa", { title: "Detalhes da tarefa", task });
-        } catch (error) {
-            next(error)
-        }
+  // 🗑️ Excluir tarefa
+  delete: Handler = async (req, res, next) => {
+    try {
+      const id = Number(req.params.id);
+      await this.taskService.deleteById(id);
+      res.redirect("/tarefas");
+    } catch (error) {
+      next(error);
     }
-
-    
-    // Excluir uma tarefa (via botao ou formulario)
-    delete: Handler = async (req, res, next) => {
-        try {
-            const id = Number(req.params.id);
-
-            await this.taskService.delete(id);
-        } catch (error) {
-            next(error)
-        }
-    }
-
+  };
 }

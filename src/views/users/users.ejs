@@ -1,0 +1,17 @@
+<%- include("../partials/header") %>
+
+<h1><%= title %></h1>
+<a href="/users/newUser">Criar Usuário</a>
+<ul>
+  <% usuarios.forEach(user => { %>
+    <li>
+      <%= user.name %> - <%= user.email %> - <%= user.role %>
+      <a href="/users/<%= user.id %>">Ver</a>
+      <form action="/users/<%= user.id %>/delete" method="POST" style="display:inline">
+        <button>Excluir</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+<%- include("../partials/footer") %>

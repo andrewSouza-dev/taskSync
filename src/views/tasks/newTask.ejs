@@ -1,0 +1,18 @@
+<%- include("../partials/header") %>
+
+<h1><%= title %></h1>
+<form action="/tasks" method="POST">
+  <input type="text" name="title" placeholder="Título" required><br>
+  <textarea name="description" placeholder="Descrição" required></textarea><br>
+  <select name="status">
+    <option value="PENDING">PENDING</option>
+    <option value="RUNNING">RUNNING</option>
+    <option value="COMPLETED">COMPLETED</option>
+    <option value="FAILED">FAILED</option>
+  </select><br>
+  <input type="number" name="userId" placeholder="ID do Usuário Responsável" required><br>
+  <button type="submit">Criar</button>
+</form>
+<a href="/tasks">Voltar</a>
+
+<%- include("../partials/footer") %>

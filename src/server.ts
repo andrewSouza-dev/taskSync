@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
+
 import { router as authRoutes } from "./routes/authRoutes";
 import { router as taskRoutes } from "./routes/taskRoutes";
 import { router as userTaskRoutes } from "./routes/userTasksRoutes";
@@ -33,7 +34,6 @@ const __dirname = path.dirname(__filename);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-
 // 📂 Arquivos estáticos (CSS, JS, imagens)
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -43,7 +43,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/users", userRoutes); // apenas admins
 app.use("/api/usersTasks", userTaskRoutes);
-app.use("/", viewsRouter)
 
 
 // 🖥️ Rotas das views

@@ -7,7 +7,7 @@ export class TaskController {
 
   getAllTasks: Handler = async (req, res, next) => {
     try {
-      const tasks = await this.taskService.getAllTasks();
+      const tasks = await this.taskService.findAll();
       res.json(tasks);
     } catch (error) {
       next(error);
@@ -18,7 +18,7 @@ export class TaskController {
     try {
       const id = Number(req.params.id);
 
-      const task = await this.taskService.show(id);
+      const task = await this.taskService.findById(id);
       res.json(task);
     } catch (error) {
       next(error);
@@ -41,7 +41,7 @@ export class TaskController {
       const id = Number(req.params.id);
       const data = UpdateTaskRequestSchema.parse(req.body);
 
-      const task = await this.taskService.update(id, data);
+      const task = await this.taskService.updateById(id, data);
       res.json(task);
     } catch (error) {
       next(error);
@@ -52,7 +52,7 @@ export class TaskController {
     try {
       const id = Number(req.params.id);
 
-      const deleted = await this.taskService.delete(id);
+      const deleted = await this.taskService.deleteById(id);
       res.status(200).json({ deleted });
     } catch (error) {
       next(error);

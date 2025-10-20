@@ -11,11 +11,6 @@ import { safeUser } from "../security/types";
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  private toSafeUser(user: User): safeUser {
-    const { password, ...safe } = user;
-    return safe;
-  }
-
   async login(data: LoginAttributes): Promise<{ user: safeUser; token: string }> {
     const { email, password } = data
 

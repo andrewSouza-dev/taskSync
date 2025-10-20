@@ -1,0 +1,17 @@
+<%- include("../partials/header") %>
+
+<h1><%= title %></h1>
+<a href="/tasks/newTask">Criar Tarefa</a>
+<ul>
+  <% tasks.forEach(task => { %>
+    <li>
+      <strong><%= task.title %></strong> - <%= task.status %>
+      <a href="/tasks/<%= task.id %>">Ver</a>
+      <form action="/tasks/<%= task.id %>/delete" method="POST" style="display:inline">
+        <button>Excluir</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+<%- include("../partials/footer") %>
