@@ -17,15 +17,9 @@ export class PrismaUserRepository implements UserRepository {
     return prisma.user.findUnique({where: { email } });
   }
 
-  async create(data: CreateUserAttributes): Promise<safeUser> {
+  async create(data: CreateUserAttributes): Promise<User> {
     return prisma.user.create({ 
       data,
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true
-      }
     });
   }
 

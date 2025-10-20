@@ -14,11 +14,11 @@ export class UserService {
     return this.userRepository.findById(id);
   }
 
-  async findByEmail(email: string): Promise<safeUser | null> {
+  async findByEmail(email: string): Promise<User | null> {
     return this.userRepository.findByEmail(email);
   }
 
-  async create(data: CreateUserRequest): Promise<safeUser> {
+  async create(data: CreateUserRequest): Promise<User> {
     return this.userRepository.create(data);
   }
 

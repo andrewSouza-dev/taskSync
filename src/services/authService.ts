@@ -45,6 +45,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    return newUser;
+    const { password: _, ...safeUser } = newUser;
+    return safeUser;
   }
 }
