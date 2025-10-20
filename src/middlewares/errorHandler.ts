@@ -8,7 +8,7 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (error, req, res, nex
     }
     else if (error instanceof ZodError) {
         res.status(400).json({ errors: error.issues.map(e => ({
-            path: e.path.join('.'),
+            campo: e.path.join('.'),
             message: e.message
         }))
         })
