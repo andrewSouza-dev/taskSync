@@ -1,39 +1,39 @@
 import { Router } from "express";
 import { viewTaskController, viewuserController } from "../../containers";
 
-
 const router = Router();
 
-// Página inicial
+// Página inicial (pública)
 router.get("/", (req, res) => {
   res.render("index", { title: "Página Inicial" });
 });
 
+// Página de login (pública)
+router.get("/login", (req, res) => {
+  res.render("login", { title: "Login" });
+});
+
+// Logout
+router.get("/logout", (req, res) => {
+  req.user = undefined; // limpar usuário
+  res.locals.user = null; // também remove da view
+  res.redirect("/");
+});
+
 /* ==================== USUÁRIOS ==================== */
-// Listar usuários
+// Todas rotas abaixo assumem que user está logado e é admin
 router.get("/users", viewuserController.list);
-// Formulário criar usuário
 router.get("/users/newUser", viewuserController.createForm);
-// Criar usuário
 router.post("/users", viewuserController.create);
-// Detalhes do usuário
 router.get("/users/:id", viewuserController.show);
-// Excluir usuário
 router.post("/users/:id/delete", viewuserController.delete);
 
-
-
 /* ==================== TAREFAS ==================== */
-// Listar tarefas
+// Rotas para tarefas (usuário logado)
 router.get("/tasks", viewTaskController.listAllTasks);
-// Formulário criar tarefa
 router.get("/tasks/newTask", viewTaskController.createForm);
-// Criar tarefa
 router.post("/tasks", viewTaskController.create);
-// Detalhes da tarefa
 router.get("/tasks/:id", viewTaskController.show);
-// Excluir tarefa
 router.post("/tasks/:id/delete", viewTaskController.delete);
-
 
 export { router };

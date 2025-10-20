@@ -4,27 +4,23 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
-
 import { router as authRoutes } from "./routes/authRoutes";
 import { router as taskRoutes } from "./routes/taskRoutes";
 import { router as userTaskRoutes } from "./routes/userTasksRoutes";
 import { router as viewsRouter } from "./routes/viewsRoutes";
 import { errorHandlerMiddleware } from "./middlewares/errorHandler";
 import { router as userRoutes } from "./routes/userRoutes";
-
+import { AuthMiddleware } from "./middlewares/authMiddleware";
 
 // 🔧 Carrega variáveis do .env
 dotenv.config();
 
-
 const app: Application = express();
-
 
 // 🚧 Middlewares globais
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // Necessário para formulários HTML
-
+app.use(express.urlencoded({ extended: true }));
 
 // Converte import.meta.url para caminho de arquivo
 const __filename = fileURLToPath(import.meta.url);
@@ -37,27 +33,27 @@ app.set("views", path.join(__dirname, "views"));
 // 📂 Arquivos estáticos (CSS, JS, imagens)
 app.use(express.static(path.join(__dirname, "public")));
 
-
-// 🌐 Rotas REST (API)
+// ======================= ROTAS REST (API) =======================
 app.use("/api/auth", authRoutes);
-app.use("/api/tasks", taskRoutes);
-app.use("/api/users", userRoutes); // apenas admins
-app.use("/api/usersTasks", userTaskRoutes);
+app.use("/api/tasks", AuthMiddleware.verify, taskRoutes);
+app.use("/api/users", AuthMiddleware.verify, userRoutes); // apenas admins
+app.use("/api/usersTasks", AuthMiddleware.verify, userTaskRoutes);
 
+// ======================= MIDDLEWARE PARA VIEWS =======================
+// Disponibiliza `user` em todas as views
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
 
-// 🖥️ Rotas das views
+// ======================= ROTAS DAS VIEWS =======================
 app.use("/", viewsRouter);
 
-
-// 🧱 Middleware global de erro
+// ======================= MIDDLEWARE GLOBAL DE ERRO =======================
 app.use(errorHandlerMiddleware);
 
-
-// 🚪 Porta do Servidor
+// ======================= PORTA =======================
 const PORT = process.env.PORT || 3000;
-
-
-// ▶️ Inicialização
 app.listen(PORT, () => {
   console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
 });

@@ -1,0 +1,13 @@
+<%- include("../partials/header") %>
+
+<h1>Login</h1>
+
+<form action="/api/auth/login" method="POST" class="form-box">
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="password" name="password" placeholder="Senha" required>
+  <button type="submit">Entrar</button>
+</form>
+
+<p>Não tem uma conta? <a href="/auth/register">Registre-se</a></p>
+
+<%- include("../partials/footer") %>

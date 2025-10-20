@@ -1,0 +1,52 @@
+<%- include("partials/header") %>
+
+<h1>Dashboard</h1>
+<p>Bem-vindo, <strong><%= user.name %></strong> (<%= user.role %>)!</p>
+
+<section class="dashboard-section">
+  <h2>Suas Tarefas</h2>
+  <% if (tasks.length === 0) { %>
+    <p>Você ainda não possui tarefas.</p>
+  <% } else { %>
+    <ul>
+      <% tasks.forEach(task => { %>
+        <li>
+          <strong><%= task.title %></strong> - <%= task.status %>
+          <a href="/tasks/<%= task.id %>">Ver</a>
+          <% if (user.role === "ADMIN") { %>
+            <form action="/tasks/<%= task.id %>/delete" method="POST" style="display:inline">
+              <button>Excluir</button>
+            </form>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+  <% if (user.role === "ADMIN") { %>
+    <a href="/tasks/newTask" class="button">Criar Nova Tarefa</a>
+  <% } %>
+</section>
+
+<% if (user.role === "ADMIN") { %>
+<section class="dashboard-section">
+  <h2>Usuários</h2>
+  <% if (usuarios.length === 0) { %>
+    <p>Nenhum usuário cadastrado.</p>
+  <% } else { %>
+    <ul>
+      <% usuarios.forEach(u => { %>
+        <li>
+          <%= u.name %> - <%= u.email %> - <%= u.role %>
+          <a href="/users/<%= u.id %>">Ver</a>
+          <form action="/users/<%= u.id %>/delete" method="POST" style="display:inline">
+            <button>Excluir</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+  <a href="/users/newUser" class="button">Criar Novo Usuário</a>
+</section>
+<% } %>
+
+<%- include("partials/footer") %>
