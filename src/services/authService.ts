@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { CreateUserAttributes, LoginAttributes, UserRepository } from "../repositories/userRepository";
 import { HttpError } from "../errors/HttpError";
 import { User } from "../../generated/prisma";
-import { safeUser } from "../types/types";
+import { safeUser } from "../security/types";
 
 // tipo usado para não retornar a senha nas requisições
 
