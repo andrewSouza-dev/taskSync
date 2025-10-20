@@ -4,10 +4,13 @@ import { CreateUserAttributes, LoginAttributes, UserRepository } from "../reposi
 import { HttpError } from "../errors/HttpError";
 import { User } from "../../generated/prisma";
 
+
+type safeUser = Omit<User, "password"> // tipo usado para nao retornar a senha nas requisicoes
+
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async login(data: LoginAttributes): Promise<{ user: User; token: string }> {
+  async login(data: LoginAttributes): Promise<{ user: safeUser; token: string }> {
     const { email, password } = data
 
     const user = await this.userRepository.findByEmail(email);
@@ -27,7 +30,7 @@ export class AuthService {
     return { user, token };
   }
 
-  async register(data: CreateUserAttributes): Promise<User> {
+  async register(data: CreateUserAttributes): Promise<safeUser> {
     const existing = await this.userRepository.findByEmail(data.email);
     if (existing) throw new HttpError(400, "Email já cadastrado");
 
@@ -37,7 +40,10 @@ export class AuthService {
       ...data,
       password: hashedPassword,
     });
+    
+    // 🔒 Remove a senha antes de retornar
+    const { password: _, ...safeUser } = newUser;
 
-    return newUser;
+    return safeUser;
   }
 }
