@@ -1,6 +1,7 @@
 import { prisma} from "../../database";
 import { CreateUserAttributes, UserRepository } from "../userRepository";
 import { User } from "../../../generated/prisma";
+import { safeUser } from "../../services/authService";
 
 export class PrismaUserRepository implements UserRepository {
 
@@ -13,11 +14,19 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return prisma.user.findUnique({ where: { email } });
+    return prisma.user.findUnique({where: { email } });
   }
 
-  async create(data: CreateUserAttributes): Promise<User> {
-    return prisma.user.create({ data });
+  async create(data: CreateUserAttributes): Promise<safeUser> {
+    return prisma.user.create({ 
+      data,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true
+      }
+    });
   }
 
   async update(id: number, data: Partial<CreateUserAttributes>): Promise<User | null> {

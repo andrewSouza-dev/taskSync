@@ -1,6 +1,7 @@
 import { UserRepository } from "../repositories/userRepository";
 import { User } from "../../generated/prisma";
 import { CreateUserRequest, UpdateUserRequest } from "../controllers/schemas/userRequestSchema";
+import { safeUser } from "./authService";
 
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
@@ -13,11 +14,11 @@ export class UserService {
     return this.userRepository.findById(id);
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<safeUser | null> {
     return this.userRepository.findByEmail(email);
   }
 
-  async create(data: CreateUserRequest): Promise<User> {
+  async create(data: CreateUserRequest): Promise<safeUser> {
     return this.userRepository.create(data);
   }
 

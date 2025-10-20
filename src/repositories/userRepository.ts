@@ -1,4 +1,5 @@
 import  { User }  from "../../generated/prisma";
+import { safeUser } from "../services/authService";
 
 type userRole = "MEMBER" | "ADMIN"
 export interface CreateUserAttributes {
@@ -11,7 +12,7 @@ export interface UserRepository {
   findAll(): Promise<User[]>
   findById(id: number): Promise<User | null>;
   findByEmail(email: string): Promise<User | null>;
-  create(data: CreateUserAttributes): Promise<User>;
+  create(data: CreateUserAttributes): Promise<safeUser>;
   update(id: number, data: Partial<CreateUserAttributes>): Promise<User | null>;
   delete(id: number): Promise<User | null>
 }

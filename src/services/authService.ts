@@ -4,8 +4,8 @@ import { CreateUserAttributes, LoginAttributes, UserRepository } from "../reposi
 import { HttpError } from "../errors/HttpError";
 import { User } from "../../generated/prisma";
 
-
-type safeUser = Omit<User, "password"> // tipo usado para nao retornar a senha nas requisicoes
+// tipo usado para não retornar a senha nas requisições
+export type safeUser = Omit<User, "password"> 
 
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}
@@ -26,9 +26,13 @@ export class AuthService {
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
+    // 3️⃣ Remove o campo password antes de retornar
+    const { password: _, ...safeUser } = user;
 
-    return { user, token };
+    return { user: safeUser, token };
   }
+
+
 
   async register(data: CreateUserAttributes): Promise<safeUser> {
     const existing = await this.userRepository.findByEmail(data.email);
@@ -40,10 +44,7 @@ export class AuthService {
       ...data,
       password: hashedPassword,
     });
-    
-    // 🔒 Remove a senha antes de retornar
-    const { password: _, ...safeUser } = newUser;
 
-    return safeUser;
+    return newUser;
   }
 }
