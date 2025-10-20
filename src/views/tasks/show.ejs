@@ -1,0 +1,12 @@
+<%- include("../partials/header") %>
+
+<h1><%= title %></h1>
+
+<p><strong>Título:</strong> <%= task.title %></p>
+<p><strong>Descrição:</strong> <%= task.description %></p>
+<p><strong>Status:</strong> <%= task.status %></p>
+<p><strong>ID do Usuário Responsável:</strong> <%= task.userId %></p>
+
+<a href="/tasks">Voltar</a>
+
+<%- include("../partials/footer") %>

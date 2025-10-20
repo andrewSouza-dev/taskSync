@@ -9,7 +9,7 @@ export class ViewUserController {
   list: Handler = async (req, res, next) => {
     try {
       const users: safeUser[] = await this.userService.findAll();
-      res.render("usuarios/listar", { title: "Usuários", usuarios: users });
+      res.render("users/users", { title: "Usuários", usuarios: users });
     } catch (error) {
       next(error);
     }
@@ -17,7 +17,7 @@ export class ViewUserController {
 
   // 🧩 Exibir formulário de criação
   createForm: Handler = (req, res) => {
-    res.render("usuarios/criar", { title: "Criar Usuário" });
+    res.render("users/newUser", { title: "Criar Usuário" });
   };
 
   // 🆕 Criar novo usuário
@@ -25,7 +25,7 @@ export class ViewUserController {
     try {
       const { name, email, password, role } = req.body;
       await this.userService.create({ name, email, password, role });
-      res.redirect("/usuarios");
+      res.redirect("/users");
     } catch (error) {
       next(error);
     }
@@ -37,7 +37,7 @@ export class ViewUserController {
       const id = Number(req.params.id);
       const usuario = await this.userService.findById(id);
       if (!usuario) return res.status(404).send("Usuário não encontrado");
-      res.render("usuarios/show", { title: "Detalhes do Usuário", usuario });
+      res.render("users/show", { title: "Detalhes do Usuário", usuario });
     } catch (error) {
       next(error);
     }
@@ -48,7 +48,7 @@ export class ViewUserController {
     try {
       const id = Number(req.params.id);
       await this.userService.delete(id);
-      res.redirect("/usuarios");
+      res.redirect("/users");
     } catch (error) {
       next(error);
     }

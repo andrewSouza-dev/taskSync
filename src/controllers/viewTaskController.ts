@@ -9,7 +9,7 @@ export class ViewTaskController {
   listAllTasks: Handler = async (req, res, next) => {
     try {
       const tasks: Task[] = await this.taskService.findAll();
-      res.render("tarefas/listar", { title: "Tarefas", tasks });
+      res.render("tasks/tasks", { title: "Tarefas", tasks });
     } catch (error) {
       next(error);
     }
@@ -17,7 +17,7 @@ export class ViewTaskController {
 
   // 🧩 Exibir formulário de criação
   createForm: Handler = (req, res) => {
-    res.render("tarefas/criar", { title: "Criar Tarefa" });
+    res.render("tasks/newTask", { title: "Criar Tarefa" });
   };
 
   // 🆕 Criar nova tarefa
@@ -25,7 +25,7 @@ export class ViewTaskController {
     try {
       const { title, description, status } = req.body as CreateTaskAttributes;
       await this.taskService.create({ title, description, status });
-      res.redirect("/tarefas");
+      res.redirect("/tasks");
     } catch (error) {
       next(error);
     }
@@ -37,7 +37,7 @@ export class ViewTaskController {
       const id = Number(req.params.id);
       const task: Task | null = await this.taskService.findById(id);
       if (!task) return res.status(404).send("Tarefa não encontrada");
-      res.render("tarefas/show", { title: "Detalhes da Tarefa", task });
+      res.render("tasks/show", { title: "Detalhes da Tarefa", task });
     } catch (error) {
       next(error);
     }
@@ -48,7 +48,7 @@ export class ViewTaskController {
     try {
       const id = Number(req.params.id);
       await this.taskService.deleteById(id);
-      res.redirect("/tarefas");
+      res.redirect("/tasks");
     } catch (error) {
       next(error);
     }
