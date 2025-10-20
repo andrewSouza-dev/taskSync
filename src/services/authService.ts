@@ -3,12 +3,18 @@ import jwt from "jsonwebtoken";
 import { CreateUserAttributes, LoginAttributes, UserRepository } from "../repositories/userRepository";
 import { HttpError } from "../errors/HttpError";
 import { User } from "../../generated/prisma";
+import { safeUser } from "../types/types";
 
 // tipo usado para não retornar a senha nas requisições
-export type safeUser = Omit<User, "password"> 
+
 
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}
+
+  private toSafeUser(user: User): safeUser {
+    const { password, ...safe } = user;
+    return safe;
+  }
 
   async login(data: LoginAttributes): Promise<{ user: safeUser; token: string }> {
     const { email, password } = data
@@ -45,7 +51,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const { password: _, ...safeUser } = newUser;
-    return safeUser;
+    const { password: _, ...safe } = newUser;
+    return safe;
   }
 }

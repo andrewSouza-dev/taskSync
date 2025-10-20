@@ -1,7 +1,6 @@
 import { UserRepository } from "../repositories/userRepository";
 import { User } from "../../generated/prisma";
 import { CreateUserRequest, UpdateUserRequest } from "../controllers/schemas/userRequestSchema";
-import { safeUser } from "./authService";
 
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}

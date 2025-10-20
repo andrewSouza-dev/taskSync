@@ -1,4 +1,4 @@
-import { Task, UserTask } from "../../generated/prisma";
+import { Task } from "../../generated/prisma";
 
 export interface CreateTaskAttributes {
     title: string,

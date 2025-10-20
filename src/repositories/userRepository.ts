@@ -1,5 +1,4 @@
 import  { User }  from "../../generated/prisma";
-import { safeUser } from "../services/authService";
 
 type userRole = "MEMBER" | "ADMIN"
 export interface CreateUserAttributes {

@@ -1,7 +1,6 @@
 import { prisma} from "../../database";
 import { CreateUserAttributes, UserRepository } from "../userRepository";
 import { User } from "../../../generated/prisma";
-import { safeUser } from "../../services/authService";
 
 export class PrismaUserRepository implements UserRepository {
 
