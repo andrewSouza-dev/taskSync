@@ -7,11 +7,15 @@ const passwordSchema = z.string()
   .regex(/[A-Z]/, { message: "A senha deve conter ao menos uma letra maiúscula" })
   .regex(/[0-9]/, { message: "A senha deve conter ao menos um número" });
 
+// Enum para role
+const roleSchema = z.enum(["MEMBER", "ADMIN"], { message: "Role é obrigatória" });
+
 // Schema de criação
 export const CreateUserRequestSchema = z.object({
   name: nameSchema,
   email: emailSchema,
   password: passwordSchema,
+  role: roleSchema
 });
 
 // Schema de atualização (campos opcionais)

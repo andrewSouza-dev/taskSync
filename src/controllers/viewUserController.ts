@@ -22,8 +22,8 @@ export class ViewUserController {
     // 🆕 Criar novo usuário
     create: Handler = async (req, res, next) => {
         try {
-            const { name, email, password } = req.body;
-            await this.userService.create({ name, email, password });
+            const { name, email, password, role } = req.body;
+            await this.userService.create({ name, email, password, role });
             res.redirect("/usuarios");
         } catch (error) {
             next(error);

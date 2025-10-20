@@ -3,13 +3,14 @@ import jwt from "jsonwebtoken";
 
 interface JwtPayload {
   userId: number,
-  email: string
+  email: string,
+  role: "ADMIN" | "MEMBER"
 }
 
 declare global {
   namespace Express {
     interface Request {
-      user?: { id: number; email: string };
+      user?: { id: number; email: string; role: "ADMIN" | "MEMBER" };
     }
   }
 }
@@ -27,6 +28,7 @@ export class AuthMiddleware {
       req.user = {
         id: decoded.userId,
         email: decoded.email,
+        role: decoded.role
       };
 
       next();
@@ -34,6 +36,17 @@ export class AuthMiddleware {
     } catch (error) {
       res.status(401).json({ error: "Token inválido" });
     }
+  }
+
+
+  static isAdmin: Handler = async (req, res, next) => {
+    const user = req.user;
+
+    if (!user) return res.status(401).json({ message: "Não autenticado!"});
+
+    if (user.role !== "ADMIN") return res.status(403).json({ message: "Acesso negado: Admins apenas"})
+      
+    next();
   }
 }
   

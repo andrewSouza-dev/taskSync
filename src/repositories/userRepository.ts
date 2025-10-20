@@ -1,9 +1,11 @@
 import  { User }  from "../../generated/prisma";
 
+type userRole = "MEMBER" | "ADMIN"
 export interface CreateUserAttributes {
     name: string,
     email: string,
-    password: string
+    password: string,
+    role: userRole
 }
 export interface UserRepository {
   findAll(): Promise<User[]>

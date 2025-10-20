@@ -10,6 +10,7 @@ import { UserTaskController } from "../src/controllers/userTaskController";
 import { ViewUserController } from "../src/controllers/viewUserController";
 import { ViewTaskController } from "../src/controllers/viewTaskController";
 import { UserService } from "../src/services/userService";
+import { UserController } from "../src/controllers/userController";
 
 // 🧱 Repositórios (acesso ao banco)
 const userRepository = new PrismaUserRepository();
@@ -27,6 +28,7 @@ export const userService = new UserService(userRepository)
 export const authController = new AuthController(authService);
 export const taskController = new TaskController(taskService);
 export const userTaskController = new UserTaskController(userTaskService);
+export const userController = new UserController(userService)
 
 
 // 🖥️ Controllers (Views EJS / front-end)

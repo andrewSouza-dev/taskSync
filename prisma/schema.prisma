@@ -13,6 +13,7 @@ model User {
   name     String     @db.VarChar(255)
   email    String     @unique @db.VarChar(150)
   password String     @db.VarChar(255)
+  role     UserRole    @default(MEMBER) // pode ser "USER" ou "ADMIN"
   tasks    UserTask[]
 }
 

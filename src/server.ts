@@ -2,11 +2,15 @@ import express, { Application } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
+import { fileURLToPath } from "url";
+
 import { router as authRoutes } from "./routes/authRoutes";
 import { router as taskRoutes } from "./routes/taskRoutes";
 import { router as userTaskRoutes } from "./routes/userTasksRoutes";
-import { errorHandlerMiddleware } from "./middlewares/errorHandler";
 import { router as viewsRouter } from "./routes/viewsRoutes";
+import { errorHandlerMiddleware } from "./middlewares/errorHandler";
+import { router as userRoutes } from "./routes/userRoutes";
+
 
 // 🔧 Carrega variáveis do .env
 dotenv.config();
@@ -21,6 +25,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Necessário para formulários HTML
 
 
+// Converte import.meta.url para caminho de arquivo
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // 📁 Configuração das views (EJS)
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -31,9 +39,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 // 🌐 Rotas REST (API)
-app.use("/api/tasks", taskRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/users", userTaskRoutes);
+app.use("/api/tasks", taskRoutes);
+app.use("/api/users", userRoutes); // apenas admins
+app.use("/api/usersTasks", userTaskRoutes);
+app.use("/", viewsRouter)
 
 
 // 🖥️ Rotas das views
