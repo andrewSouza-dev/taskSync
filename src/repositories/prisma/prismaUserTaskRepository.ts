@@ -1,6 +1,6 @@
 import { Task, UserRole, UserTask } from "../../../generated/prisma";
 import { prisma } from "../../database";
-import { UserTaskRepository } from "../userTaskRepository";
+import { UserTaskRepository, UserTaskWithRelations } from "../userTaskRepository";
 
 
 export class PrismaUserTaskRepository implements UserTaskRepository {
@@ -10,13 +10,14 @@ export class PrismaUserTaskRepository implements UserTaskRepository {
       where: { userId },
       include: {
         task: true,
-      }
+      },
+      orderBy: { task: { id: "desc" } }
     });
   }
 
 
   // 🔹 Buscar uma task específica de um usuário
-  async findByIdTaskAndUser(userId: number, taskId: number): Promise<UserTask | null> {
+  async findByIdTaskAndUser(userId: number, taskId: number): Promise<UserTaskWithRelations | null> {
     return prisma.userTask.findUnique({
       where: {
         userId_taskId: {

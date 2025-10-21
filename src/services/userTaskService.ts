@@ -31,26 +31,26 @@ export class UserTaskService {
   }
 
 
-  async createUserTask(userId: number, data: CreateTaskForUserData) {
+  async createUserTask(userId: number, data: CreateTaskForUserData): Promise<Task> {
     const task = await this.taskRepository.create({
       title: data.title,
-      description: data.description ?? "",
-      status: data.status || "PENDING",
+      description: data.description,
+      status: data.status,
     })
 
     // associar a task ao user
     try {
-      const userTask = await this.userTaskRepository.createTaskByUser(
+      await this.userTaskRepository.createTaskByUser(
       userId, 
       task.id,
       data.role ?? "MEMBER"
     );
 
-     return userTask;
+     return task;
   
     } catch (error: any) {
       // verificação genérica de erro de duplicidade (ou qualquer regra de negócio)
-    if (error?.message?.includes("duplicado")) { 
+    if (error.code === "P2002") { 
         throw new HttpError(400, "Usuário já está vinculado a esta tarefa");
     }
 

@@ -57,7 +57,10 @@ export class ViewTaskController {
       const taskId = Number(req.params.id);
 
       const userTask = await this.userTaskService.getTaskByUserAndTaskId(userId, taskId);
-      res.render("tasks/editTask", { title: "Editar Task", task: userTask, user: req.user });
+      res.render("tasks/editTask", { 
+        title: "Editar Task",
+        task: userTask.task,
+        user: req.user });
     } catch (err) {
       next(err);
     }
@@ -98,7 +101,7 @@ export class ViewTaskController {
   listAllTasks: Handler = async (req, res, next) => {
     try {
       const tasks = await this.taskService.findAll();
-      res.render("tasks/tasks", { title: "Todas as Tasks", tasks, user: req.user });
+      res.render("admin/tasks/alltasks", { title: "Todas as Tasks", tasks, user: req.user });
     } catch (err) {
       next(err);
     }
@@ -123,7 +126,8 @@ export class ViewTaskController {
         title, 
         description, 
         status, 
-        role: "MEMBER" });
+        role
+      });
       res.redirect(`/users/${userId}/tasks`);
     } catch (err) {
       next(err);

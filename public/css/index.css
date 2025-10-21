@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url('../img/fundo.png'); /* substitua com a URL acima se quiser direto */
+  background-size: cover;
+  background-position: center;
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  margin: auto;
+  border-radius: 12px;
+  max-width: 600px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}

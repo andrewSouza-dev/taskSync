@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="/styles/menu.css">
+
+<div class="navbar">
+  <div class="nav-left">
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/my-tasks">📋 Minhas Tarefas</a>
+    <% if (user && user.role === 'ADMIN') { %>
+      <a href="/tasks">🛠️ Tarefas (Admin)</a>
+      <a href="/users">👥 Usuários</a>
+    <% } %>
+  </div>
+  <div class="nav-right">
+    <a href="/" class="btn-back">🔙 Voltar</a>
+    <a href="/logout">🚪 Sair</a>
+  </div>
+</div>

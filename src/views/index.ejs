@@ -1,11 +1,18 @@
 <%- include('partials/header') %>
+<%- include('partials/menu', { user }) %>
+<link rel="stylesheet" href="/css/index.css">
 
-<h1>Página Inicial</h1>
+<div class="container">
+  <h1>🌅 Página Inicial</h1>
 
-<% if (!user) { %>
-  <p>Bem-vindo! Faça login ou registre-se para acessar o sistema.</p>
-<% } else { %>
-  <p>Olá, <%= user.name %>! Você é <%= user.role %>.</p>
-<% } %>
+  <% if (!user) { %>
+    <p>Bem-vindo! Faça login ou registre-se para acessar o sistema.</p>
+    <a href="/login" class="btn-primary">🔐 Login</a>
+    <a href="/register" class="btn-primary">📝 Registro</a>
+  <% } else { %>
+    <p>Olá, <%= user.name %>! Você é <%= user.role %>.</p>
+    <a href="/dashboard" class="btn-primary">📊 Ir para o Dashboard</a>
+  <% } %>
+</div>
 
 <%- include('partials/footer') %>

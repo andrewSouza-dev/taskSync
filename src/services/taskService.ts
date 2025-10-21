@@ -1,6 +1,7 @@
 import { CreateTaskAttributes, TaskRepository } from "../repositories/taskRepository";
 import { HttpError } from "../errors/HttpError";
 import { Task } from "../../generated/prisma";
+import { prisma } from "../database";
 
 
 
@@ -27,7 +28,7 @@ export class TaskService {
     const task = await this.taskRepository.create({
       ...data,
     });
-
+    
     return task;
   }
 

@@ -1,88 +1,137 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
   margin: 0;
-  padding: 0;
-  background: #f5f5f5;
+  padding: 20px;
 }
 
-header, footer {
-  background: #333;
-  color: #fff;
-  padding: 1rem;
+h1 {
+  color: #333;
+  margin-bottom: 20px;
 }
 
-header nav a {
-  color: #fff;
-  margin-right: 1rem;
-  text-decoration: none;
+
+/* TABELAS */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-header nav span {
-  margin-right: 1rem;
+.table th,
+.table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
 }
 
-h1, h2 {
+.table th {
+  background-color: #f0f0f0;
   color: #333;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1rem;
+
+
+/* STATUS DAS TASKS */
+.badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  color: white;
 }
 
-table th, table td {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  text-align: left;
-}
+/* COLOR DOS STATUS DAS TASKS */ 
+.badge.bg-secondary { background-color: #6c757d; }
+.badge.bg-info { background-color: #17a2b8; }
+.badge.bg-success { background-color: #28a745; }
+.badge.bg-danger { background-color: #dc3545; }
 
-.status-badge {
-  padding: 0.25rem 0.5rem;
-  border-radius: 5px;
-  color: #fff;
+
+
+/* BOTOES */
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-decoration: none;
   font-weight: bold;
 }
 
-.status-pending { background: orange; }
-.status-running { background: blue; }
-.status-completed { background: green; }
-.status-failed { background: red; }
+.btn-primary:hover {
+  background-color: #0056b3;
+}
 
-.btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  padding: 0.5rem 1rem;
+.btn-sm {
+  padding: 6px 10px;
+  font-size: 0.85em;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
-  border-radius: 5px;
   text-decoration: none;
 }
 
+.btn-warning {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
 .btn-delete {
-  background-color: red;
-  color: #fff;
-  padding: 0.25rem 0.5rem;
+  background-color: #dc3545;
+  color: white;
   border: none;
-  border-radius: 5px;
+  padding: 6px 10px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-.form label {
-  display: block;
-  margin-top: 0.5rem;
+
+/* MENU */
+.navbar {
+  background-color: #343a40;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
   font-weight: bold;
 }
 
-.form input, .form textarea, .form select {
-  width: 100%;
-  padding: 0.5rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.5rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.navbar a:hover {
+  text-decoration: underline;
 }
 
-a button {
-  cursor: pointer;
+.navbar .nav-left {
+  display: flex;
+  align-items: center;
 }
+
+.navbar .nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .btn-back {
+  background-color: #6c757d;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.navbar .btn-back:hover {
+  background-color: #5a6268;
+}
+

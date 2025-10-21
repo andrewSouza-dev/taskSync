@@ -1,4 +1,9 @@
-import  { Task, UserTask }  from "../../generated/prisma"
+import  { Task, User, UserTask }  from "../../generated/prisma"
+
+export type UserTaskWithRelations = UserTask & {
+  task: Task;
+  user: User;
+};
 
 export type UserRole = "MEMBER" | "ADMIN";
 
@@ -7,7 +12,7 @@ export interface UserTaskRepository {
     findAllByUser(userId: number): Promise<UserTask[]>
 
     // Buscar uma task específica de um usuário
-    findByIdTaskAndUser(userId: number, taskId: number) : Promise<UserTask | null>
+    findByIdTaskAndUser(userId: number, taskId: number) : Promise<UserTaskWithRelations | null>
 
     // Criar uma task por usuario
     createTaskByUser(userid: number, taskId: number, role: UserRole): Promise<UserTask>

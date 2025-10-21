@@ -28,7 +28,7 @@ router.post("/my-tasks", AuthMiddleware.verify, viewTaskController.create);
 router.get("/my-tasks/:id", AuthMiddleware.verify, viewTaskController.show);
 router.get("/my-tasks/:id/edit", AuthMiddleware.verify, AuthMiddleware.isMemberOrOwner, viewTaskController.editForm);
 router.put("/my-tasks/:id", AuthMiddleware.verify, AuthMiddleware.isMemberOrOwner, viewTaskController.update);
-router.post("/my-tasks/:id", AuthMiddleware.verify, AuthMiddleware.isMemberOrOwner, viewTaskController.delete);
+router.delete("/my-tasks/:id", AuthMiddleware.verify, AuthMiddleware.isMemberOrOwner, viewTaskController.delete);
 
 
 

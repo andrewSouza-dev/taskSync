@@ -1,6 +1,6 @@
 import { prisma } from "../../database";
 import { TaskRepository, CreateTaskAttributes } from "../taskRepository";
-import { Task, UserTask } from "../../../generated/prisma";
+import { Task } from "../../../generated/prisma";
 
 export class PrismaTaskRepository implements TaskRepository {
   async findAll(): Promise<Task[]> {
@@ -40,12 +40,13 @@ export class PrismaTaskRepository implements TaskRepository {
   async findAllByUser(userId: number): Promise<Task[]> {
     return prisma.task.findMany({
       where: {
-      users: {
-        some: { userId } 
-         } 
-        }, include: {
-          users: true
-      },
+        users: {
+          some: {
+            userId: userId 
+          } 
+        } 
+      }, 
+      include: { users: true },
       orderBy: { id: "desc" }
   });
 }}
