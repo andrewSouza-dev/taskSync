@@ -38,7 +38,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(methodOverride("_method"));
 
 // 📂 Arquivos estáticos (CSS, JS, imagens)
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // ======================= ROTAS REST (API) =======================
 app.use("/api/auth", authRoutes);

@@ -1,8 +1,10 @@
 <header>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/style.css">
   <nav>
     <a href="/">Início</a>
     <% if (typeof user !== 'undefined' && user) { %>
-        <span>Olá, <%= user.email %>!</span>
+        <span>Olá,  <%= user.email %>!</span>
         <a href="/logout">Sair</a>
     <% } else { %>
         <a href="/login">Login</a>
