@@ -1,217 +1,88 @@
-/* ==================== RESET ==================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* ==================== BODY ==================== */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
-    line-height: 1.6;
-    padding: 0 20px;
-    margin: 0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
 }
 
-/* ==================== HEADER / NAV ==================== */
-header {
-    background-color: #fff;
-    padding: 15px 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    margin-bottom: 20px;
+header, footer {
+  background: #333;
+  color: #fff;
+  padding: 1rem;
 }
 
-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    align-items: center;
+header nav a {
+  color: #fff;
+  margin-right: 1rem;
+  text-decoration: none;
 }
 
-nav a {
-    text-decoration: none;
-    color: #007BFF;
-    font-weight: bold;
+header nav span {
+  margin-right: 1rem;
 }
 
-nav a.active {
-    color: #0056b3;
-    border-bottom: 2px solid #0056b3;
+h1, h2 {
+  color: #333;
 }
 
-nav a:hover {
-    text-decoration: underline;
-}
-
-/* ==================== HEADINGS ==================== */
-h1 {
-    margin-bottom: 15px;
-    color: #222;
-}
-
-/* ==================== LINKS ==================== */
-a {
-    color: #007BFF;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* ==================== BUTTONS ==================== */
-button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
-}
-
-button:hover,
-button:focus {
-    background-color: #0056b3;
-    outline: none;
-}
-
-/* ==================== FORMULÁRIOS ==================== */
-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    max-width: 500px;
-    margin-bottom: 20px;
-}
-
-form input, form textarea, form select {
-    width: 100%;
-    padding: 10px 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 15px;
-    transition: border 0.2s;
-}
-
-form input:focus,
-form textarea:focus,
-form select:focus {
-    border-color: #007BFF;
-    outline: none;
-}
-
-textarea {
-    resize: vertical;
-    min-height: 80px;
-}
-
-/* ==================== TABLES ==================== */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
 }
 
 table th, table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  text-align: left;
 }
 
-table th {
-    background-color: #f8f9fa;
-}
-
-table tr:hover {
-    background-color: #f5f5f5;
-}
-
-/* ==================== LISTAS ==================== */
-ul {
-    list-style: none;
-    margin-bottom: 20px;
-}
-
-ul li {
-    margin-bottom: 10px;
-}
-
-/* ==================== FOOTER ==================== */
-footer {
-    margin-top: 30px;
-    text-align: center;
-    color: #777;
-    padding: 15px 0;
-}
-
-/* ==================== ALERTS ==================== */
-.alert {
-    padding: 10px 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-}
-
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.alert-error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-/* ==================== TASK STATUS BADGES ==================== */
 .status-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
 }
 
-.status-pending {
-    background-color: #ffc107; /* amarelo */
+.status-pending { background: orange; }
+.status-running { background: blue; }
+.status-completed { background: green; }
+.status-failed { background: red; }
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
-.status-running {
-    background-color: #17a2b8; /* azul */
+.btn-delete {
+  background-color: red;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.status-completed {
-    background-color: #28a745; /* verde */
+.form label {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: bold;
 }
 
-.status-failed {
-    background-color: #dc3545; /* vermelho */
+.form input, .form textarea, .form select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-
-/* ==================== RESPONSIVE ==================== */
-@media (max-width: 600px) {
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    form, table {
-        width: 100%;
-    }
-
-    table th, table td {
-        padding: 8px 10px;
-    }
+a button {
+  cursor: pointer;
 }

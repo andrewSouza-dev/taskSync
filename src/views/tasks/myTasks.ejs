@@ -13,20 +13,23 @@
     </tr>
   </thead>
   <tbody>
-    <% tasks.forEach(t => { %>
-      <tr>
-        <td><%= t.id %></td>
-        <td><%= t.title %></td>
-        <td><%= t.status %></td>
-        <td>
-          <a href="/my-tasks/<%= t.id %>">Ver</a> |
-          <a href="/my-tasks/<%= t.id %>/edit">Editar</a> |
-          <form action="/my-tasks/<%= t.id %>?_method=DELETE" method="POST" style="display:inline;">
-            <button class="btn-delete">Deletar</button>
-          </form>
-        </td>
-      </tr>
-    <% }) %>
+    <% if (tasks.length > 0) { %>
+      <% tasks.forEach(t => { %>
+        <tr>
+          <td><%= t.id %></td>
+          <td><%= t.title %></td>
+          <td><%= t.status %></td>
+          <td>
+            <a href="/my-tasks/<%= t.taskId %>/edit">Editar</a>
+            <form action="/my-tasks/<%= t.taskId %>?_method=DELETE" method="POST" style="display:inline;">
+              <button class="btn-delete">Deletar</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    <% } else { %>
+      <tr><td colspan="4">Nenhuma tarefa encontrada</td></tr>
+    <% } %>
   </tbody>
 </table>
 

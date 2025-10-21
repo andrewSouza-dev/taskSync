@@ -30,7 +30,7 @@ model UserTask {
   taskId Int
   role   UserRole   @default(MEMBER)
 
-  task   Task       @relation(fields: [taskId], references: [id])
+  task   Task       @relation(fields: [taskId], references: [id], onDelete: Cascade)
   user   User       @relation(fields: [userId], references: [id])
 
   @@unique([userId, taskId])

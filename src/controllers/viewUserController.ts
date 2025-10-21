@@ -9,7 +9,7 @@ export class ViewUserController {
   list: Handler = async (req, res, next) => {
     try {
       const users: safeUser[] = await this.userService.findAll();
-      res.render("users/users", { title: "Usuários", usuarios: users });
+      res.render("admin/users/list", { title: "Usuários", users });
     } catch (error) {
       next(error);
     }
@@ -17,7 +17,7 @@ export class ViewUserController {
 
   // 🧩 Exibir formulário de criação
   createForm: Handler = (req, res) => {
-    res.render("users/newUser", { title: "Criar Usuário" });
+    res.render("admin/users/new", { title: "Criar Usuário" });
   };
 
   // 🆕 Criar novo usuário
@@ -37,7 +37,7 @@ export class ViewUserController {
       const { id } = req.params;
       const usuario = await this.userService.findById(Number(id));
       if (!usuario) return res.status(404).render("errors/404");
-      res.render("users/editUser", { title: "Editar Usuário", usuario });
+      res.render("admin/users/edit", { title: "Editar Usuário", usuario });
     } catch (error) {
       next(error);
     }
@@ -49,7 +49,7 @@ export class ViewUserController {
       const id = Number(req.params.id);
       const usuario = await this.userService.findById(id);
       if (!usuario) return res.status(404).send("Usuário não encontrado");
-      res.render("users/show", { title: "Detalhes do Usuário", usuario });
+      res.render("admin/users/show", { title: "Detalhes do Usuário", usuario });
     } catch (error) {
       next(error);
     }

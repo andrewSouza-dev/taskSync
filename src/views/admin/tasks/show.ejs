@@ -1,0 +1,16 @@
+<%- include('../../partials/header') %>
+
+<h2>Detalhes da Tarefa</h2>
+
+<p><strong>ID:</strong> <%= task.id %></p>
+<p><strong>Título:</strong> <%= task.title %></p>
+<p><strong>Descrição:</strong> <%= task.description %></p>
+<p><strong>Status:</strong> <%= task.status %></p>
+
+<a href="/tasks/<%= task.id %>/edit">Editar</a>
+<form action="/tasks/<%= task.id %>?_method=DELETE" method="POST" style="display:inline;">
+  <button type="submit">Excluir</button>
+</form>
+<a href="/tasks">⬅ Voltar</a>
+
+<%- include('../../partials/footer') %>

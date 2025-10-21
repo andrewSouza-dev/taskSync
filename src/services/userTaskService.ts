@@ -1,12 +1,12 @@
 import { UserTaskRepository } from "../repositories/userTaskRepository";
 import { HttpError } from "../errors/HttpError";
-import { TaskStatus, UserRole, UserTask } from "../../generated/prisma";
+import { Task, TaskStatus, UserRole, UserTask } from "../../generated/prisma";
 import { TaskRepository } from "../repositories/taskRepository";
 
 interface CreateTaskForUserData {
   title: string,
   description: string,
-  status?: TaskStatus,
+  status: TaskStatus,
   role?: UserRole
 }
 

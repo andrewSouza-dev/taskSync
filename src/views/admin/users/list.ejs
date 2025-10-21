@@ -1,0 +1,39 @@
+<%- include('../../partials/header') %>
+
+<h2>Gerenciar Usuários</h2>
+<a href="/users/new" class="btn-primary">➕ Novo Usuário</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (users.length > 0) { %>
+      <% users.forEach(u => { %>
+        <tr>
+          <td><%= u.id %></td>
+          <td><%= u.name %></td>
+          <td><%= u.email %></td>
+          <td><%= u.role %></td>
+          <td>
+            <a href="/users/<%= u.id %>">Ver</a> |
+            <a href="/users/<%= u.id %>/edit">Editar</a> |
+            <form action="/users/<%= u.id %>?_method=DELETE" method="POST" style="display:inline;">
+              <button>Deletar</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    <% } else { %>
+      <tr><td colspan="5">Nenhum usuário encontrado</td></tr>
+    <% } %>
+  </tbody>
+</table>
+
+<%- include('../../partials/header') %>

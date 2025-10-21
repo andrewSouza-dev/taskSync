@@ -3,12 +3,12 @@
   <link rel="stylesheet" href="/css/style.css">
   <nav>
     <a href="/">Início</a>
-    <% if (typeof user !== 'undefined' && user) { %>
-        <span>Olá,  <%= user.email %>!</span>
-        <a href="/logout">Sair</a>
+    <% if (locals.user) { %>
+      <span>Olá, <%= locals.user.email %>!</span>
+      <a href="/logout">Sair</a>
     <% } else { %>
-        <a href="/login">Login</a>
-        <a href="/register">Registrar</a>
+      <a href="/login">Entrar</a>
+      <a href="/register">Registrar</a>
     <% } %>
 
   </nav>

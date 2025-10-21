@@ -26,9 +26,11 @@ router.get("/my-tasks", AuthMiddleware.verify, viewTaskController.listByUser);
 router.get("/my-tasks/new", AuthMiddleware.verify, viewTaskController.createForm);
 router.post("/my-tasks", AuthMiddleware.verify, viewTaskController.create);
 router.get("/my-tasks/:id", AuthMiddleware.verify, viewTaskController.show);
-router.get("/my-tasks/:id/edit", AuthMiddleware.verify, viewTaskController.editForm);
-router.put("/my-tasks/:id", AuthMiddleware.verify, viewTaskController.update);
-router.delete("/my-tasks/:id", AuthMiddleware.verify, viewTaskController.delete);
+router.get("/my-tasks/:id/edit", AuthMiddleware.verify, AuthMiddleware.isMemberOrOwner, viewTaskController.editForm);
+router.put("/my-tasks/:id", AuthMiddleware.verify, AuthMiddleware.isMemberOrOwner, viewTaskController.update);
+router.post("/my-tasks/:id", AuthMiddleware.verify, AuthMiddleware.isMemberOrOwner, viewTaskController.delete);
+
+
 
 /* ======== CRUD DE USUÁRIOS (ADMIN APENAS) ======== */
 router.get("/users", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewuserController.list);
@@ -39,12 +41,14 @@ router.get("/users/:id/edit", AuthMiddleware.verify, AuthMiddleware.isAdmin, vie
 router.put("/users/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewuserController.update);
 router.delete("/users/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewuserController.delete);
 
+
+
 /* ======== CRUD DE TODAS AS TAREFAS (ADMIN APENAS) ======== */
 router.get("/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.listAllTasks);
-router.get("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.show);
-router.post("/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.create);
-router.put("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.update);
-router.delete("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.delete);
+router.get("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.showGlobal);
+router.post("/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.createGlobal);
+router.put("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.updateGlobal);
+router.delete("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.deleteTaskAsAdmin);
 
 
 
@@ -53,5 +57,11 @@ router.get("/users/:userId/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin
 router.post("/users/:userId/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.createUserTask); // criar task e associar ao user
 router.put("/users/:userId/tasks/:taskId", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.updateUserTask); // atualizar associação
 router.delete("/users/:userId/tasks/:taskId", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.deleteUserTask); // remover associação
+
+
+router.use((req, res) => {
+  res.status(404).render("errors/error", { message: "Página não encontrada" });
+});
+
 
 export { router };

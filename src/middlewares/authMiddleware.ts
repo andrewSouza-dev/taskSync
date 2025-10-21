@@ -1,5 +1,7 @@
 import { Handler } from "express";
 import jwt from "jsonwebtoken";
+import { userTaskService } from "../../containers";
+
 
 interface JwtPayload {
   userId: number;
@@ -42,7 +44,7 @@ export class AuthMiddleware {
       next();
     } catch (error) {
       console.error("Erro no middleware de autenticação:", error);
-      res.locals.user = null;
+      res.locals.user = req.user;
       return res
         .status(401)
         .render("errors/error", { message: "Token inválido ou expirado" });
@@ -63,5 +65,26 @@ export class AuthMiddleware {
     }
 
     next();
+  };
+
+
+  static isMemberOrOwner: Handler = async (req, res, next) => {
+  try {
+    const userId = req.user!.id;
+    const taskId = parseInt(req.params.id);
+
+    // Se for admin, libera tudo
+    if (req.user!.role === "ADMIN") return next();
+
+    // Member: só se for dono da task
+    const task = await userTaskService.getTaskByUserAndTaskId(userId, taskId);
+    if (!task) {
+      return res.status(403).send("Você não tem permissão para acessar esta task.");
+    }
+    
+    next();
+  } catch (err) {
+    next(err);
+  }
   };
 }

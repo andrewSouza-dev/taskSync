@@ -28,7 +28,12 @@ export class PrismaTaskRepository implements TaskRepository {
   }
 
   async deleteById(id: number): Promise<Task | null> {
-    return prisma.task.delete({ where: { id } });
+    const task = await prisma.task.findUnique({ where: { id } });
+  if (!task) return null;
+
+  await prisma.userTask.deleteMany({ where: { taskId: id } });
+
+  return prisma.task.delete({ where: { id } }) 
   }
 
   /** 🔹 Buscar todas as tasks associadas a um usuário específico */
@@ -36,11 +41,11 @@ export class PrismaTaskRepository implements TaskRepository {
     return prisma.task.findMany({
       where: {
       users: {
-        some: {
-          userId
-        }
-      }
-    },
-    orderBy: { id: "desc" }
+        some: { userId } 
+         } 
+        }, include: {
+          users: true
+      },
+      orderBy: { id: "desc" }
   });
 }}

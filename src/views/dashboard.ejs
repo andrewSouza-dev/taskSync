@@ -6,7 +6,6 @@
 
 <hr>
 
-<!-- 🔹 Se for ADMIN, mostra CRUD de usuários e todas as tarefas -->
 <% if (user?.role === "ADMIN") { %>
   <section>
     <h2>Painel Administrativo</h2>
@@ -17,20 +16,16 @@
   </section>
 <% } %>
 
-<!-- 🔹 Se for MEMBER, mostra CRUD das próprias tarefas -->
 <% if (user?.role === "MEMBER") { %>
   <section>
     <h2>Suas Tarefas</h2>
     <ul>
       <li><a href="/my-tasks">📝 Ver Minhas Tarefas</a></li>
-      <li><a href="/tasks/new">➕ Criar Nova Tarefa</a></li>
+      <li><a href="/my-tasks/new">➕ Criar Nova Tarefa</a></li>
     </ul>
   </section>
 <% } %>
 
 <hr>
-
-<a href="/logout">Sair</a> |
 <a href="/">Voltar para Página Inicial</a>
-
 <%- include('partials/footer') %>

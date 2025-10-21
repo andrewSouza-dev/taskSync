@@ -2,7 +2,7 @@ import { Task } from "../../generated/prisma";
 
 export interface CreateTaskAttributes {
     title: string,
-    description: string,
+    description?: string,
     status: TaskStatus
 }
 

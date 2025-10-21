@@ -38,7 +38,7 @@ export class AuthController {
       const { name, email, password, role } = req.body;
       const newUser = await this.authService.register({ name, email, password, role });
 
-      return res.status(201).render("success", {
+      return res.status(201).render("auth/success", {
       name: newUser.name,
       email: newUser.email,
       role: newUser.role
