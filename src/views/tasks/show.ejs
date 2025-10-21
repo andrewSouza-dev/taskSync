@@ -1,11 +1,14 @@
-<%- include("../partials/header") %>
+<%- include('../partials/header') %>
 
-<h1><%= title %></h1>
+<h1>Detalhes da Tarefa</h1>
 
-<p><strong>Título:</strong> <%= task.title %></p>
-<p><strong>Descrição:</strong> <%= task.description %></p>
-<p><strong>Status:</strong> <%= task.status %></p>
+<ul>
+  <li><strong>ID:</strong> <%= task.id %></li>
+  <li><strong>Título:</strong> <%= task.title %></li>
+  <li><strong>Descrição:</strong> <%= task.description %></li>
+  <li><strong>Status:</strong> <%= task.status %></li>
+</ul>
 
-<a href="/tasks">Voltar</a>
+<a href="/tasks/<%= task.id %>/edit"><button>Editar</button></a>
 
-<%- include("../partials/footer") %>
+<%- include('../partials/footer') %>

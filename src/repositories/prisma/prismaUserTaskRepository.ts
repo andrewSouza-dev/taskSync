@@ -5,23 +5,12 @@ import { UserTaskRepository } from "../userTaskRepository";
 
 export class PrismaUserTaskRepository implements UserTaskRepository {
   // 🔹 Buscar todas as tasks de um usuário
-  async findAllByUser(userId: number): Promise<Task[]> {
-    return prisma.task.findMany({
-      where: {
-        users: {
-          some: {
-            userId,
-          },
-        },
-      },
-      include: {  //  incluir dados da relação
-        users: {
-          select: {
-            role: true,
-            userId: true
-          }
-        } 
-      },
+  async findAllByUser(userId: number): Promise<UserTask[]> {
+    return prisma.userTask.findMany({
+      where: { userId },
+      include: {
+        task: true,
+      }
     });
   }
 

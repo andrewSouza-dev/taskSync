@@ -1,18 +1,17 @@
-<%- include("../partials/header") %>
+<%- include('partials/header') %>
 
 <h1>Registro</h1>
 
-<form action="/api/auth/register" method="POST" class="form-box">
+<form action="/api/auth/register" method="POST">
   <input type="text" name="name" placeholder="Nome" required>
   <input type="email" name="email" placeholder="Email" required>
   <input type="password" name="password" placeholder="Senha" required>
-  <select name="role">
+  <select name="role" required>
     <option value="MEMBER">MEMBER</option>
     <option value="ADMIN">ADMIN</option>
   </select>
   <button type="submit">Registrar</button>
 </form>
 
-<p>Já tem uma conta? <a href="/auth/login">Entre aqui</a></p>
 
-<%- include("../partials/footer") %>
+<%- include('partials/footer') %>

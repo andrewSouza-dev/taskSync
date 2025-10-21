@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+
+<h1>Editar Usuário</h1>
+
+<form action="/users/<%= usuario.id %>?_method=PUT" method="POST">
+  <input type="text" name="name" value="<%= usuario.name %>" required>
+  <input type="email" name="email" value="<%= usuario.email %>" required>
+  <input type="password" name="password" placeholder="Nova senha (opcional)">
+  <select name="role" required>
+    <option value="MEMBER" <%= usuario.role === 'MEMBER' ? 'selected' : '' %>>MEMBER</option>
+    <option value="ADMIN" <%= usuario.role === 'ADMIN' ? 'selected' : '' %>>ADMIN</option>
+  </select>
+  <button type="submit">Atualizar</button>
+</form>
+
+<%- include('../partials/footer') %>

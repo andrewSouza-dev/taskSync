@@ -15,4 +15,7 @@ export interface TaskRepository {
   create(data: CreateTaskAttributes): Promise<Task>;
   updateById(id: number, data: Partial<CreateTaskAttributes>): Promise<Task | null>;
   deleteById(id: number): Promise<Task | null>;
+
+   /** 🔹 Nova função para buscar tasks de um usuário */
+  findAllByUser(userId: number): Promise<Task[]>;
 }

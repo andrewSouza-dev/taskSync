@@ -1,5 +1,6 @@
 import { CreateTaskAttributes, TaskRepository } from "../repositories/taskRepository";
 import { HttpError } from "../errors/HttpError";
+import { Task } from "../../generated/prisma";
 
 export class TaskService {
   constructor(private readonly taskRepository: TaskRepository) {}
@@ -12,6 +13,10 @@ export class TaskService {
     const task = await this.taskRepository.findById(id);
     if (!task) throw new HttpError(404, "Tarefa não encontrada");
     return task;
+  }
+
+  async findAllByUser(userId: number): Promise<Task[]> {
+    return this.taskRepository.findAllByUser(userId);
   }
 
   async create(data: CreateTaskAttributes){

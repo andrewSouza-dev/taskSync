@@ -1,0 +1,33 @@
+<%- include('../partials/header') %>
+
+<h1>Minhas Tarefas</h1>
+<a href="/my-tasks/new" class="btn-primary">➕ Nova Tarefa</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tasks.forEach(t => { %>
+      <tr>
+        <td><%= t.id %></td>
+        <td><%= t.title %></td>
+        <td><%= t.status %></td>
+        <td>
+          <a href="/my-tasks/<%= t.id %>">Ver</a> |
+          <a href="/my-tasks/<%= t.id %>/edit">Editar</a> |
+          <form action="/my-tasks/<%= t.id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button class="btn-delete">Deletar</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('../partials/footer') %>

@@ -1,52 +1,36 @@
-<%- include("partials/header") %>
+<%- include('partials/header') %>
 
-<h1>Dashboard</h1>
-<p>Bem-vindo, <strong><%= user.name %></strong> (<%= user.role %>)!</p>
+<h1>Bem-vindo, <%= user?.name %>!</h1>
+<p>Email: <%= user?.email %></p>
+<p>Função: <%= user?.role %></p>
 
-<section class="dashboard-section">
-  <h2>Suas Tarefas</h2>
-  <% if (tasks.length === 0) { %>
-    <p>Você ainda não possui tarefas.</p>
-  <% } else { %>
+<hr>
+
+<!-- 🔹 Se for ADMIN, mostra CRUD de usuários e todas as tarefas -->
+<% if (user?.role === "ADMIN") { %>
+  <section>
+    <h2>Painel Administrativo</h2>
     <ul>
-      <% tasks.forEach(task => { %>
-        <li>
-          <strong><%= task.title %></strong> - <%= task.status %>
-          <a href="/tasks/<%= task.id %>">Ver</a>
-          <% if (user.role === "ADMIN") { %>
-            <form action="/tasks/<%= task.id %>/delete" method="POST" style="display:inline">
-              <button>Excluir</button>
-            </form>
-          <% } %>
-        </li>
-      <% }) %>
+      <li><a href="/users">👤 Gerenciar Usuários</a></li>
+      <li><a href="/tasks">🗂️ Gerenciar Todas as Tarefas</a></li>
     </ul>
-  <% } %>
-  <% if (user.role === "ADMIN") { %>
-    <a href="/tasks/newTask" class="button">Criar Nova Tarefa</a>
-  <% } %>
-</section>
-
-<% if (user.role === "ADMIN") { %>
-<section class="dashboard-section">
-  <h2>Usuários</h2>
-  <% if (usuarios.length === 0) { %>
-    <p>Nenhum usuário cadastrado.</p>
-  <% } else { %>
-    <ul>
-      <% usuarios.forEach(u => { %>
-        <li>
-          <%= u.name %> - <%= u.email %> - <%= u.role %>
-          <a href="/users/<%= u.id %>">Ver</a>
-          <form action="/users/<%= u.id %>/delete" method="POST" style="display:inline">
-            <button>Excluir</button>
-          </form>
-        </li>
-      <% }) %>
-    </ul>
-  <% } %>
-  <a href="/users/newUser" class="button">Criar Novo Usuário</a>
-</section>
+  </section>
 <% } %>
 
-<%- include("partials/footer") %>
+<!-- 🔹 Se for MEMBER, mostra CRUD das próprias tarefas -->
+<% if (user?.role === "MEMBER") { %>
+  <section>
+    <h2>Suas Tarefas</h2>
+    <ul>
+      <li><a href="/my-tasks">📝 Ver Minhas Tarefas</a></li>
+      <li><a href="/tasks/new">➕ Criar Nova Tarefa</a></li>
+    </ul>
+  </section>
+<% } %>
+
+<hr>
+
+<a href="/logout">Sair</a> |
+<a href="/">Voltar para Página Inicial</a>
+
+<%- include('partials/footer') %>

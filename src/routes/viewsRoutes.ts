@@ -1,39 +1,57 @@
 import { Router } from "express";
 import { viewTaskController, viewuserController } from "../../containers";
+import { AuthMiddleware } from "../middlewares/authMiddleware";
 
 const router = Router();
 
-// Página inicial (pública)
-router.get("/", (req, res) => {
-  res.render("index", { title: "Página Inicial" });
-});
+/* ======== PÁGINA INICIAL E LOGIN ======== */
+router.get("/", (req, res) => res.render("index", { title: "Página Inicial" }));
+router.get("/login", (req, res) => res.render("login", { title: "Login" }));
+router.get("/register", (req, res) => res.render("register", { title: "Registro" }));
 
-// Página de login (pública)
-router.get("/login", (req, res) => {
-  res.render("login", { title: "Login" });
-});
-
-// Logout
 router.get("/logout", (req, res) => {
-  req.user = undefined; // limpar usuário
-  res.locals.user = null; // também remove da view
+  res.clearCookie("token"); // remove o JWT do navegador
+  res.locals.user = null;
   res.redirect("/");
 });
 
-/* ==================== USUÁRIOS ==================== */
-// Todas rotas abaixo assumem que user está logado e é admin
-router.get("/users", viewuserController.list);
-router.get("/users/newUser", viewuserController.createForm);
-router.post("/users", viewuserController.create);
-router.get("/users/:id", viewuserController.show);
-router.post("/users/:id/delete", viewuserController.delete);
+/* ======== ÁREA LOGADA ======== */
+router.get("/dashboard", AuthMiddleware.verify, (req, res) => {
+  res.render("dashboard", { title: "Dashboard", user: req.user });
+});
 
-/* ==================== TAREFAS ==================== */
-// Rotas para tarefas (usuário logado)
-router.get("/tasks", viewTaskController.listAllTasks);
-router.get("/tasks/newTask", viewTaskController.createForm);
-router.post("/tasks", viewTaskController.create);
-router.get("/tasks/:id", viewTaskController.show);
-router.post("/tasks/:id/delete", viewTaskController.delete);
+/* ======== CRUD DE TAREFAS (MEMBER e ADMIN) ======== */
+// Apenas usuários autenticados podem ver/editar suas próprias tarefas
+router.get("/my-tasks", AuthMiddleware.verify, viewTaskController.listByUser);
+router.get("/my-tasks/new", AuthMiddleware.verify, viewTaskController.createForm);
+router.post("/my-tasks", AuthMiddleware.verify, viewTaskController.create);
+router.get("/my-tasks/:id", AuthMiddleware.verify, viewTaskController.show);
+router.get("/my-tasks/:id/edit", AuthMiddleware.verify, viewTaskController.editForm);
+router.put("/my-tasks/:id", AuthMiddleware.verify, viewTaskController.update);
+router.delete("/my-tasks/:id", AuthMiddleware.verify, viewTaskController.delete);
+
+/* ======== CRUD DE USUÁRIOS (ADMIN APENAS) ======== */
+router.get("/users", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewuserController.list);
+router.get("/users/new", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewuserController.createForm);
+router.post("/users", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewuserController.create);
+router.get("/users/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewuserController.show);
+router.get("/users/:id/edit", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewuserController.editForm);
+router.put("/users/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewuserController.update);
+router.delete("/users/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewuserController.delete);
+
+/* ======== CRUD DE TODAS AS TAREFAS (ADMIN APENAS) ======== */
+router.get("/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.listAllTasks);
+router.get("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.show);
+router.post("/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.create);
+router.put("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.update);
+router.delete("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.delete);
+
+
+
+/* ======== CRUD DE USER-TASKS (ADMIN APENAS) ======== */
+router.get("/users/:userId/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.listUserTasks); // listar tasks de um usuário
+router.post("/users/:userId/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.createUserTask); // criar task e associar ao user
+router.put("/users/:userId/tasks/:taskId", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.updateUserTask); // atualizar associação
+router.delete("/users/:userId/tasks/:taskId", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.deleteUserTask); // remover associação
 
 export { router };

@@ -12,6 +12,7 @@ body {
     color: #333;
     line-height: 1.6;
     padding: 0 20px;
+    margin: 0;
 }
 
 /* ==================== HEADER / NAV ==================== */
@@ -19,15 +20,26 @@ header {
     background-color: #fff;
     padding: 15px 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
     border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
 }
 
 nav a {
-    margin-right: 15px;
     text-decoration: none;
     color: #007BFF;
     font-weight: bold;
+}
+
+nav a.active {
+    color: #0056b3;
+    border-bottom: 2px solid #0056b3;
 }
 
 nav a:hover {
@@ -55,14 +67,17 @@ button {
     background-color: #007BFF;
     color: #fff;
     border: none;
-    padding: 6px 12px;
+    padding: 8px 14px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    transition: background-color 0.2s ease;
 }
 
-button:hover {
+button:hover,
+button:focus {
     background-color: #0056b3;
+    outline: none;
 }
 
 /* ==================== FORMULÁRIOS ==================== */
@@ -77,30 +92,59 @@ form {
 
 form input, form textarea, form select {
     width: 100%;
-    padding: 8px 10px;
-    margin: 8px 0;
+    padding: 10px 12px;
+    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 15px;
+    transition: border 0.2s;
 }
 
-form textarea {
+form input:focus,
+form textarea:focus,
+form select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+textarea {
     resize: vertical;
+    min-height: 80px;
+}
+
+/* ==================== TABLES ==================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+table th {
+    background-color: #f8f9fa;
+}
+
+table tr:hover {
+    background-color: #f5f5f5;
 }
 
 /* ==================== LISTAS ==================== */
 ul {
     list-style: none;
+    margin-bottom: 20px;
 }
 
 ul li {
-    background-color: #fff;
-    padding: 12px 15px;
     margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 /* ==================== FOOTER ==================== */
@@ -108,4 +152,66 @@ footer {
     margin-top: 30px;
     text-align: center;
     color: #777;
+    padding: 15px 0;
+}
+
+/* ==================== ALERTS ==================== */
+.alert {
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* ==================== TASK STATUS BADGES ==================== */
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.status-pending {
+    background-color: #ffc107; /* amarelo */
+}
+
+.status-running {
+    background-color: #17a2b8; /* azul */
+}
+
+.status-completed {
+    background-color: #28a745; /* verde */
+}
+
+.status-failed {
+    background-color: #dc3545; /* vermelho */
+}
+
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    form, table {
+        width: 100%;
+    }
+
+    table th, table td {
+        padding: 8px 10px;
+    }
 }

@@ -31,6 +31,18 @@ export class ViewUserController {
     }
   };
 
+  // Exibir formulário de edição de usuário
+  editForm: Handler = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const usuario = await this.userService.findById(Number(id));
+      if (!usuario) return res.status(404).render("errors/404");
+      res.render("users/editUser", { title: "Editar Usuário", usuario });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   // 👀 Exibir detalhes de um usuário
   show: Handler = async (req, res, next) => {
     try {
@@ -43,11 +55,28 @@ export class ViewUserController {
     }
   };
 
+  // Atualizar usuário
+  update: Handler = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const { name, email, password, role } = req.body;
+      
+      const updatedUser = await this.userService.update(Number(id), { name, email, password, role });
+      
+      if (!updatedUser) return res.status(404).render("errors/404");
+    
+      res.redirect("/users");
+    } catch (error) {
+      next(error);
+    }
+  }
+
   // 🗑️ Excluir usuário
   delete: Handler = async (req, res, next) => {
     try {
       const id = Number(req.params.id);
-      await this.userService.delete(id);
+      const deleted = await this.userService.delete(id);
+      if (!deleted) return res.status(404).render("errors/404");
       res.redirect("/users");
     } catch (error) {
       next(error);

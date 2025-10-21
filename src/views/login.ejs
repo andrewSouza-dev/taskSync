@@ -1,11 +1,11 @@
-<%- include("partials/header") %>
+<%- include('partials/header') %>
 
 <h1>Login</h1>
 
 <form action="/api/auth/login" method="POST">
-  <input type="email" name="email" placeholder="Email" required><br>
-  <input type="password" name="password" placeholder="Senha" required><br>
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="password" name="password" placeholder="Senha" required>
   <button type="submit">Entrar</button>
 </form>
 
-<%- include("partials/footer") %>
+<%- include('partials/footer') %>

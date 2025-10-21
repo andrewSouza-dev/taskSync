@@ -4,7 +4,7 @@ export type UserRole = "MEMBER" | "ADMIN";
 
 export interface UserTaskRepository {
     // Buscar todas as tasks associadas a um usuário
-    findAllByUser(userId: number): Promise<Task[]>
+    findAllByUser(userId: number): Promise<UserTask[]>
 
     // Buscar uma task específica de um usuário
     findByIdTaskAndUser(taskId: number, userId: number) : Promise<UserTask | null>

@@ -1,11 +1,14 @@
-<%- include("../partials/header") %>
+<%- include('../partials/header') %>
 
-<h1><%= title %></h1>
+<h1>Detalhes do Usuário</h1>
 
-<p><strong>Nome:</strong> <%= usuario.name %></p>
-<p><strong>Email:</strong> <%= usuario.email %></p>
-<p><strong>Função:</strong> <%= usuario.role %></p>
+<ul>
+  <li><strong>ID:</strong> <%= usuario.id %></li>
+  <li><strong>Nome:</strong> <%= usuario.name %></li>
+  <li><strong>Email:</strong> <%= usuario.email %></li>
+  <li><strong>Role:</strong> <%= usuario.role %></li>
+</ul>
 
-<a href="/users">Voltar</a>
+<a href="/users/<%= usuario.id %>/edit"><button>Editar</button></a>
 
-<%- include("../partials/footer") %>
+<%- include('../partials/footer') %>

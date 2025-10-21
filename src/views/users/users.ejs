@@ -1,17 +1,36 @@
-<%- include("../partials/header") %>
+<%- include('../partials/header') %>
 
-<h1><%= title %></h1>
-<a href="/users/newUser">Criar Usuário</a>
-<ul>
-  <% usuarios.forEach(user => { %>
-    <li>
-      <%= user.name %> - <%= user.email %> - <%= user.role %>
-      <a href="/users/<%= user.id %>">Ver</a>
-      <form action="/users/<%= user.id %>/delete" method="POST" style="display:inline">
-        <button>Excluir</button>
-      </form>
-    </li>
-  <% }) %>
-</ul>
+<h1>Usuários</h1>
 
-<%- include("../partials/footer") %>
+<a href="/users/new"><button>Criar Novo Usuário</button></a>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% usuarios.forEach(u => { %>
+      <tr>
+        <td><%= u.id %></td>
+        <td><%= u.name %></td>
+        <td><%= u.email %></td>
+        <td><%= u.role %></td>
+        <td>
+          <a href="/users/<%= u.id %>">Ver</a> |
+          <a href="/users/<%= u.id %>/edit">Editar</a> |
+          <form action="/users/<%= u.id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit">Deletar</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('../partials/footer') %>

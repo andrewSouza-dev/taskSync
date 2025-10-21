@@ -31,7 +31,16 @@ export class PrismaTaskRepository implements TaskRepository {
     return prisma.task.delete({ where: { id } });
   }
 
-  async linkUserToTask(userId: number, taskId: number): Promise<UserTask> {
-    return prisma.userTask.create({ data: { userId, taskId }})
-  }
-}
+  /** 🔹 Buscar todas as tasks associadas a um usuário específico */
+  async findAllByUser(userId: number): Promise<Task[]> {
+    return prisma.task.findMany({
+      where: {
+      users: {
+        some: {
+          userId
+        }
+      }
+    },
+    orderBy: { id: "desc" }
+  });
+}}

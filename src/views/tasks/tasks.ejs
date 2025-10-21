@@ -1,17 +1,41 @@
-<%- include("../partials/header") %>
+<%- include('../partials/header') %>
 
-<h1><%= title %></h1>
-<a href="/tasks/newTask">Criar Tarefa</a>
-<ul>
-  <% tasks.forEach(task => { %>
-    <li>
-      <strong><%= task.title %></strong> - <%= task.status %>
-      <a href="/tasks/<%= task.id %>">Ver</a>
-      <form action="/tasks/<%= task.id %>/delete" method="POST" style="display:inline">
-        <button>Excluir</button>
-      </form>
-    </li>
-  <% }) %>
-</ul>
+<h1>Tarefas</h1>
 
-<%- include("../partials/footer") %>
+<a href="/tasks/new"><button>Criar Nova Tarefa</button></a>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tasks.forEach(t => { %>
+      <tr>
+        <td><%= t.id %></td>
+        <td><%= t.title %></td>
+        <td>
+          <span class="status-badge 
+            <% if(t.status === 'PENDING') { %>status-pending<% } %>
+            <% if(t.status === 'RUNNING') { %>status-running<% } %>
+            <% if(t.status === 'COMPLETED') { %>status-completed<% } %>
+            <% if(t.status === 'FAILED') { %>status-failed<% } %>
+          "><%= t.status %></span>
+        </td>
+        <td>
+          <a href="/tasks/<%= t.id %>">Ver</a> |
+          <a href="/tasks/<%= t.id %>/edit">Editar</a> |
+          <form action="/tasks/<%= t.id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit">Deletar</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('../partials/footer') %>

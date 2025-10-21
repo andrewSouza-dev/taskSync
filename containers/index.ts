@@ -32,5 +32,5 @@ export const userController = new UserController(userService)
 
 
 // 🖥️ Controllers (Views EJS / front-end)
-export const viewTaskController = new ViewTaskController(taskService);
+export const viewTaskController = new ViewTaskController(taskService, userTaskService);
 export const viewuserController = new ViewUserController(userService);
