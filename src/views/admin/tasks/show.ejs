@@ -1,4 +1,3 @@
-<%- include('../../partials/header') %>
 <%- include('../../partials/menu', { user }) %>
 
 
@@ -13,6 +12,6 @@
 <form action="/tasks/<%= task.id %>?_method=DELETE" method="POST" style="display:inline;">
   <button type="submit">Excluir</button>
 </form>
-<a href="/tasks">⬅ Voltar</a>
+<a href="/tasks" class="btn-back">⬅ Voltar</a>
 
 <%- include('../../partials/footer') %>

@@ -1,10 +1,6 @@
 import { CreateTaskAttributes, TaskRepository } from "../repositories/taskRepository";
 import { HttpError } from "../errors/HttpError";
 import { Task } from "../../generated/prisma";
-import { prisma } from "../database";
-
-
-
 
 export class TaskService {
   constructor(private readonly taskRepository: TaskRepository) {}
@@ -23,7 +19,7 @@ export class TaskService {
     return this.taskRepository.findAllByUser(userId);
   }
 
-  async create(data: CreateTaskAttributes){
+  async create(data: CreateTaskAttributes): Promise<Task>{
     if (!data.title) throw new HttpError(400, "O título da tarefa é obrigatório.");
     const task = await this.taskRepository.create({
       ...data,

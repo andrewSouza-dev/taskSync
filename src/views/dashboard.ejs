@@ -1,32 +1,35 @@
-<%- include('partials/header') %>
 <%- include('partials/menu', { user }) %>
 
-<h1>Bem-vindo, <%= user?.name %>!</h1>
-<p>Email: <%= user?.email %></p>
-<p>Função: <%= user?.role %></p>
+<div class="dashboard-wrapper">
+  <h1>Bem-vindo(a), <%= user?.name %>!</h1>
+  <p>
+    Função:
+    <span class="role-badge <%= user.role.toLowerCase() %>">
+      👤 <%= user.role %>
+    </span>
+  </p>
 
-<hr>
+  <hr>
 
-<% if (user?.role === "ADMIN") { %>
-  <section>
-    <h2>Painel Administrativo</h2>
-    <ul>
-      <li><a href="/users">👤 Gerenciar Usuários</a></li>
-      <li><a href="/tasks">🗂️ Gerenciar Todas as Tarefas</a></li>
-    </ul>
-  </section>
-<% } %>
+  <% if (user?.role === "ADMIN") { %>
+    <section>
+      <h2>Painel Administrativo</h2>
+      <ul>
+        <li><a href="/users" class="btn-action">👤 Gerenciar Usuários</a></li>
+        <li><a href="/tasks" class="btn-action">🗂️ Gerenciar Todas as Tarefas</a></li>
+      </ul>
+    </section>
+  <% } %>
 
-<% if (user?.role === "MEMBER") { %>
-  <section>
-    <h2>Suas Tarefas</h2>
-    <ul>
-      <li><a href="/my-tasks">📝 Ver Minhas Tarefas</a></li>
-      <li><a href="/my-tasks/new">➕ Criar Nova Tarefa</a></li>
-    </ul>
-  </section>
-<% } %>
+  <% if (user?.role === "MEMBER") { %>
+    <section>
+      <h2>Suas Tarefas</h2>
+      <ul>
+        <li><a href="/my-tasks" class="btn-action">📝 Ver Minhas Tarefas</a></li>
+        <li><a href="/my-tasks/new" class="btn-action">➕ Criar Nova Tarefa</a></li>
+      </ul>
+    </section>
+  <% } %>
+</div>
 
-<hr>
-<a href="/">Voltar para Página Inicial</a>
 <%- include('partials/footer') %>

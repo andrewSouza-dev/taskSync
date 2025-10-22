@@ -1,11 +1,11 @@
-<%- include('../partials/header') %>
+
 <%- include('../partials/menu', { user }) %>
 
-
-<h1>Cadastro realizado com sucesso!</h1>
-<p>Bem-vindo, <%= name %>!</p>
-<p>Email: <%= email %></p>
-<p>Função: <%= role %></p>
-<a href="/login">Ir para login</a>
+<div style="text-align: center; padding: 2rem;">
+  <h1>Cadastro realizado com sucesso!</h1>
+  <p>Bem-vindo(a), <%= user.name %>!</p>
+  <a href="/dashboard" class="btn-primary">Ir para o Dashboard</a>
+</div>
 
 <%- include('../partials/footer') %>
+

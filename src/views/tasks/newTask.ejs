@@ -1,25 +1,25 @@
-<%- include('../partials/header') %>
 <%- include('../partials/menu', { user }) %>
 
+<div class="form-wrapper">
+  <h1>Criar Nova Tarefa</h1>
 
-<h1>Criar Nova Tarefa</h1>
+  <form action="/my-tasks" method="POST" class="form">
+    <label for="title">Título</label>
+    <input type="text" name="title" id="title" required>
 
-<form action="/my-tasks" method="POST" class="form">
-  <label>Título:</label>
-  <input type="text" name="title" placeholder="Título" required>
-  
-  <label>Descrição:</label>
-  <textarea name="description" placeholder="Descrição"></textarea>
-  
-  <label>Status:</label>
-  <select name="status">
-    <option value="PENDING">PENDING</option>
-    <option value="RUNNING">RUNNING</option>
-    <option value="COMPLETED">COMPLETED</option>
-    <option value="FAILED">FAILED</option>
-  </select>
-  
-  <button type="submit" class="btn-primary">Criar</button>
-</form>
+    <label for="description">Descrição</label>
+    <textarea name="description" id="description" rows="4"></textarea>
+
+    <label for="status">Status</label>
+    <select name="status">
+      <option value="PENDING">PENDING</option>
+      <option value="RUNNING">RUNNING</option>
+      <option value="COMPLETED">COMPLETED</option>
+      <option value="FAILED">FAILED</option>
+    </select>
+    
+    <button type="submit" class="btn-primary">✅ Criar Tarefa</button>
+  </form>
+</div>
 
 <%- include('../partials/footer') %>

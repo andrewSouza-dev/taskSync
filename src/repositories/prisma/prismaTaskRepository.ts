@@ -5,16 +5,20 @@ import { Task } from "../../../generated/prisma";
 export class PrismaTaskRepository implements TaskRepository {
   async findAll(): Promise<Task[]> {
     return prisma.task.findMany({
-      include: { users: true },
+      include: { 
+        users: {
+          include: {
+            user: true
+          }
+        }
+      }     
     });
   }
 
   async findById(id: number): Promise<Task | null> {
-    return prisma.task.findUnique({ 
-      where: { id },
-      include: { users: true } 
-    });
+    return prisma.task.findUnique({ where: { id } })
   }
+
 
   async create(data: CreateTaskAttributes): Promise<Task> {
     return prisma.task.create({ data });

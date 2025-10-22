@@ -172,6 +172,14 @@ export class ViewTaskController {
   createGlobal: Handler = async (req, res, next) => {
   try {
     const { title, description, status } = req.body;
+
+    if (!title || !status) {
+      return res.status(400).render("errors/error", {
+        message: "Título e status são obrigatórios",
+        user: req.user
+      });
+    }
+
     await this.taskService.create({ title, description, status });
     res.redirect("/tasks");
   } catch (err) {
@@ -179,15 +187,35 @@ export class ViewTaskController {
   }
   };
 
+
   showGlobal: Handler = async (req, res, next) => {
   try {
-    const taskId = Number(req.params.id);
+    const rawId = req.params.id;
+    const taskId = Number(rawId);
+
+    if (!rawId || isNaN(taskId)) {
+      return res.status(400).render("errors/error", {
+        message: "ID da tarefa inválido",
+        user: req.user
+      });
+    }
+
     const task = await this.taskService.findById(taskId);
-    if (!task) return res.status(404).render("errors/error", { message: "Task não encontrada" });
-    res.render("admin/tasks/show", { title: "Detalhes da Task", task, user: req.user });
+    if (!task) {
+      return res.status(404).render("errors/error", {
+        message: "Task não encontrada",
+        user: req.user
+      });
+    }
+
+    res.render("admin/tasks/show", {
+      title: "Detalhes da Task",
+      task,
+      user: req.user
+    });
   } catch (err) {
     next(err);
-  }
+    }
   };
 
   editGlobalForm: Handler = async (req, res, next) => {
@@ -205,8 +233,16 @@ export class ViewTaskController {
   try {
     const taskId = Number(req.params.id);
     const { title, description, status } = req.body;
+
+    if (isNaN(taskId) || !title || !status) {
+      return res.status(400).render("errors/error", {
+        message: "Dados inválidos para atualização",
+        user: req.user
+      });
+    }
+
     await this.taskService.updateById(taskId, { title, description, status });
-    res.redirect("/tasks");
+    res.redirect(`/tasks/${taskId}`);
   } catch (err) {
     next(err);
   }

@@ -45,8 +45,10 @@ router.delete("/users/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewu
 
 /* ======== CRUD DE TODAS AS TAREFAS (ADMIN APENAS) ======== */
 router.get("/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.listAllTasks);
+router.get("/tasks/new", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.createGlobalForm);
 router.get("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.showGlobal);
 router.post("/tasks", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.createGlobal);
+router.get("/tasks/:id/edit", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.editGlobalForm);
 router.put("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.updateGlobal);
 router.delete("/tasks/:id", AuthMiddleware.verify, AuthMiddleware.isAdmin, viewTaskController.deleteTaskAsAdmin);
 

@@ -28,7 +28,10 @@ export class AuthMiddleware {
       if (!token) {
         return res
           .status(401)
-          .render("errors/error", { message: "Token ausente ou sessão expirada" });
+          .render("errors/error", { 
+            message: "Token ausente ou sessão expirada",
+            user: res.locals.user || null
+          });
       }
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;

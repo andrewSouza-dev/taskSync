@@ -1,10 +1,13 @@
-<%- include('../partials/header') %>
 <%- include('../partials/menu', { user }) %>
 
 
-<h1>ERROR</h1>
-<p><%= message %></p>
-<a href="/">Voltar</a>
+<div style="text-align: center; padding: 3rem;">
+  <img src="/img/404.png" alt="Página não encontrada" style="max-width: 400px; margin-bottom: 20px;">
+  <h1>Oops! Página não encontrada</h1>
+  <p><%= message %></p>
+  <a href="/" class="btn-primary">⬅ Voltar</a>
+</div>
+
 
 <%- include('../partials/footer') %>
 

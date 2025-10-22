@@ -1,9 +1,8 @@
-<%- include('../partials/header') %>
 <%- include('../partials/menu', { user }) %>
 
 
 <h1>📝 Minhas Tarefas</h1>
-<a href="/my-tasks/new" class="btn-primary">➕ Nova Tarefa</a>
+<a href="/my-tasks/new" class="btn-primary btn-small-width">➕ Nova Tarefa</a>
 
 <table class="table">
   <thead>
@@ -32,7 +31,8 @@
             <% } %>
           </td>
           <td>
-            <a href="/my-tasks/<%= t.task.id %>/edit" class="btn-sm btn-warning">✏️ Editar</a>
+            <a href="/users/<%= user.id %>" class="btn-view">👁 Ver</a> |
+            <a href="/my-tasks/<%= t.task.id %>/edit" class="btn-sm btn-warning">✏️ Editar</a> |
             <form action="/my-tasks/<%= t.task.id %>?_method=DELETE" method="POST" style="display:inline;">
               <button class="btn-delete">🗑️ Deletar</button>
             </form>

@@ -1,8 +1,7 @@
-<%- include('../../partials/header') %>
 <%- include('../../partials/menu', { user }) %>
 
-<h2>Gerenciar Usuários</h2>
-<a href="/users/new" class="btn-primary">➕ Novo Usuário</a>
+<h1>👤 Gerenciar Usuários</h1>
+<a href="/users/new" class="btn-primary btn-small-width">➕ Novo Usuário</a>
 
 <table class="table">
   <thead>
@@ -23,10 +22,10 @@
           <td><%= u.email %></td>
           <td><%= u.role %></td>
           <td>
-            <a href="/users/<%= u.id %>">Ver</a> |
-            <a href="/users/<%= u.id %>/edit">Editar</a> |
+            <a href="/users/<%= u.id %>" class="btn-view">👁 Ver</a> |
+            <a href="/users/<%= u.id %>/edit" class="btn-sm btn-warning">✏️ Editar</a> |
             <form action="/users/<%= u.id %>?_method=DELETE" method="POST" style="display:inline;">
-              <button>Deletar</button>
+              <button class="btn-delete">🗑️ Deletar</button>
             </form>
           </td>
         </tr>
@@ -37,4 +36,4 @@
   </tbody>
 </table>
 
-<%- include('../../partials/header') %>
+<%- include('../../partials/footer') %>

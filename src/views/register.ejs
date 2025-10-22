@@ -1,18 +1,19 @@
-<%- include('partials/header') %>
 <%- include('partials/menu', { user }) %>
 
-<h1>Registro</h1>
-
-<form action="/api/auth/register" method="POST">
-  <input type="text" name="name" placeholder="Nome" required>
-  <input type="email" name="email" placeholder="Email" required>
-  <input type="password" name="password" placeholder="Senha" required>
-  <select name="role" required>
-    <option value="MEMBER">MEMBER</option>
-    <option value="ADMIN">ADMIN</option>
-  </select>
-  <button type="submit">Registrar</button>
-</form>
+<div class="register-container">
+  <h1>Registro</h1>
+  
+  <form action="/api/auth/register" method="POST">
+    <input type="text" name="name" placeholder="Nome" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Senha" required>
+    <select name="role" required>
+      <option value="MEMBER">MEMBER</option>
+      <option value="ADMIN">ADMIN</option>
+    </select>
+    <button type="submit">Registrar</button>
+  </form>
+</div>
 
 
 <%- include('partials/footer') %>
