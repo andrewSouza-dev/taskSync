@@ -22,7 +22,7 @@ O sistema permite que usuários **criem, editem, acompanhem e gerenciem tarefas 
 | Camada          | Tecnologias                              |
 |-----------------|-------------------------------------------|
 | **Backend**     | Node.js, Express, JWT, Prisma             |
-| **Frontend**    | EJS, HTML, CSS                            |
+| **Frontend**    | EJS, CSS                                 |
 | **Banco de Dados** | PostgreSQL                            |
 | **Autenticação** | JWT + Cookies                            |
 | **Estilo**      | CSS customizado + classes utilitárias     |
