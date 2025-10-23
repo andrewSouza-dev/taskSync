@@ -28,7 +28,9 @@ export class AuthController {
       if (error instanceof Error) {
       message = error.message;
     
-      res.status(400).render("errors/error", { message });
+      res.status(400).render("errors/error", { message , 
+        user: req.user
+      });
       }
     }
   };
