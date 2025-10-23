@@ -65,8 +65,8 @@ Servidor disponível em: http://localhost:3000
 ## 📸 Screenshots
 
 [![Tela de inicio do TaskSync](./public/img/taskSync.png)](http://)
-[![login](./public/img/login.png)]
-[![tasks](./public/img/tasks.png)]
+![login](./public/img/login.png)
+![tasks](./public/img/tasks.png)
 
 ## 🧠 Autor
 
