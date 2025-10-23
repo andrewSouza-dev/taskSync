@@ -1,7 +1,7 @@
 <%- include('../partials/menu', { user }) %>
 
 <div class="form-wrapper">
-  <h1>Criar Nova Tarefa</h1>
+  <h1>Criar Nova Tarefa (PESSOAL)</h1>
 
   <form action="/my-tasks" method="POST" class="form">
     <label for="title">Título</label>
@@ -19,6 +19,7 @@
     </select>
     
     <button type="submit" class="btn-primary">✅ Criar Tarefa</button>
+    <a href="/my-tasks" class="btn-primary">⬅ Voltar</a>
   </form>
 </div>
 

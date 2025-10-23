@@ -1,15 +1,19 @@
 <%- include('../partials/menu', { user }) %>
 
+<div class="form-wrapper">
+  <h1>Detalhes da Tarefa</h1>
 
-<h1>Detalhes da Tarefa</h1>
+  <ul style="list-style: none; padding: 0; text-align: left;">
+    <li><strong>ID:</strong> <%= task.id %></li>
+    <li><strong>Título:</strong> <%= task.title %></li>
+    <li><strong>Descrição:</strong> <%= task.description %></li>
+    <li><strong>Status:</strong> <%= task.status %></li>
+  </ul>
 
-<ul>
-  <li><strong>ID:</strong> <%= task.id %></li>
-  <li><strong>Título:</strong> <%= task.title %></li>
-  <li><strong>Descrição:</strong> <%= task.description %></li>
-  <li><strong>Status:</strong> <%= task.status %></li>
-</ul>
-
-<a href="/tasks/<%= task.id %>/edit"><button>Editar</button></a>
+  <div style="margin-top: 1.5rem;">
+    <a href="/my-tasks/<%= task.id %>/edit" class="btn-action">✏️ Editar</a>
+    <a href="/my-tasks" class="btn-back">⬅ Voltar</a>
+  </div>
+</div>
 
 <%- include('../partials/footer') %>

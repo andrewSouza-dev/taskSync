@@ -1,26 +1,26 @@
 <%- include('../../partials/menu', { user }) %>
 
+<div class="form-wrapper">
+  <h2>Criar Nova Tarefa (GLOBAL)</h2>
 
-<h2>Criar Nova Tarefa</h2>
+  <form action="/tasks" method="POST">
+    <label for="title">Título</label>
+    <input type="text" name="title" id="title" required>
 
-<form action="/tasks" method="POST">
-   <label for="title">Título</label>
-  <input type="text" name="title" id="title" required>
+    <label for="description">Descrição</label>
+    <textarea name="description" id="description" rows="4"></textarea>
 
-  <label for="description">Descrição</label>
-  <textarea name="description" id="description" rows="4"></textarea>
+    <label for="status">Status</label>
+    <select name="status">
+      <option value="PENDING">PENDING</option>
+      <option value="RUNNING">RUNNING</option>
+      <option value="COMPLETED">COMPLETED</option>
+      <option value="FAILED">FAILED</option>
+    </select>
 
-  <label for="status">Status</label>
-  <select name="status">
-    <option value="PENDING">PENDING</option>
-    <option value="RUNNING">RUNNING</option>
-    <option value="COMPLETED">COMPLETED</option>
-    <option value="FAILED">FAILED</option>
-  </select>
-  
-  <button type="submit" class="btn-primary">✅ Criar Tarefa</button>
-</form>
+    <button type="submit" class="btn-primary">✅ Criar Tarefa</button>
+    <a href="/tasks" class="btn-primary">⬅ Voltar</a>
+  </form>
+</div>
 
 <%- include('../../partials/footer') %>
-
- <!--views/admin/tasks/new.ejs-->

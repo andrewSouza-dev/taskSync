@@ -30,7 +30,7 @@
             <% } %>
           </td>
           <td>
-            <a href="/users/<%= user.id %>" class="btn-view">👁 Ver</a> |
+            <a href="/tasks/<%= task.id %>" class="btn-view">👁 Ver</a> |
             <a href="/tasks/<%= task.id %>/edit" class="btn-sm btn-warning">✏️ Editar</a> |
             <form action="/tasks/<%= task.id %>?_method=DELETE" method="POST" style="display:inline;">
               <button class="btn-delete">🗑️ Deletar</button>

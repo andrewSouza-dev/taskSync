@@ -44,7 +44,7 @@ export class ViewTaskController {
       const taskId = Number(req.params.id);
 
       const userTask = await this.userTaskService.getTaskByUserAndTaskId(userId, taskId);
-      res.render("tasks/show", { title: "Detalhes da Task", task: userTask, user: req.user });
+      res.render("tasks/show", { title: "Detalhes da Task", task: userTask.task, user: req.user });
     } catch (err) {
       next(err);
     }
