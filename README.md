@@ -49,7 +49,8 @@ Servidor disponível em: http://localhost:3000
 
 ---
 
-🧪 Como Testar o Sistema
+🧪 Como Testar o Sistema:
+
 📝 Registrar um novo usuário
 
 🔑 Fazer login
